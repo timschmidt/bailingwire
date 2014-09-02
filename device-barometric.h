@@ -1,0 +1,6 @@
+#ifndef DEVICE_BAROMETRIC_H
+#define DEVICE_BAROMETRIC_H
+
+
+
+#endif // DEVICE_BAROMETRIC_H

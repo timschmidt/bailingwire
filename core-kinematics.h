@@ -1,0 +1,6 @@
+#ifndef CORE_KINEMATICS_H
+#define CORE_KINEMATICS_H
+
+
+
+#endif // CORE_KINEMATICS_H

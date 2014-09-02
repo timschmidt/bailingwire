@@ -1,0 +1,6 @@
+#ifndef CORE_WATCHDOG_H
+#define CORE_WATCHDOG_H
+
+
+
+#endif // CORE_WATCHDOG_H

@@ -1,0 +1,6 @@
+#ifndef DEVICE_BATTERY_H
+#define DEVICE_BATTERY_H
+
+
+
+#endif // DEVICE_BATTERY_H

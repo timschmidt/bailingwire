@@ -1,0 +1,6 @@
+#ifndef DEVICE_TEMPSENSOR_H
+#define DEVICE_TEMPSENSOR_H
+
+
+
+#endif // DEVICE_TEMPSENSOR_H
