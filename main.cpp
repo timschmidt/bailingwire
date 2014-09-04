@@ -4,3 +4,12 @@
 // command list:
 //  - call a per-coordinate system auto probing for axis _ (how are endstops / sensors specified?)
 //  - 
+
+
+void setup() {
+	// machine configuration struct
+}
+
+void loop() {
+	
+}
