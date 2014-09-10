@@ -1,5 +1,5 @@
-#ifndef CORE_MODEL_FUTURE_H
-#define CORE_MODEL_FUTURE_H
+#ifndef CORE_MODEL_IDEAL_H
+#define CORE_MODEL_IDEAL_H
 
 // virtual simulation of the actual machine - all values throughout the firmware are derived from these numbers
 
@@ -10,4 +10,4 @@
 
 // calculate length based on struct size, available ram at compile time 
 
-#endif // CORE_MODEL_FUTURE_H
+#endif // CORE_MODEL_IDEAL_H
