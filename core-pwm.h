@@ -1,6 +1,57 @@
 #ifndef CORE_PWM_H
 #define CORE_PWM_H
 
+// where is the dividing line between pwm and timer setup?
+
+// convert these into a single invariant function w/ lookup table in progmem
+void timer3_init(int pin) {
+	pinMode(pin, OUTPUT);
+    analogWrite(pin, 1);  // let Arduino setup do it's thing to the PWM pin
+
+    TCCR3B = 0x00;  // stop Timer4 clock for register updates
+    TCCR3A = 0x82; // Clear OC3A on match, fast PWM mode, lower WGM3x=14
+    ICR3 = labs(F_CPU / LASER_PWM); // clock cycles per PWM pulse
+    OCR3A = labs(F_CPU / LASER_PWM) - 1; // ICR3 - 1 force immediate compare on next tick
+    TCCR3B = 0x18 | 0x01; // upper WGM4x = 14, clock sel = prescaler, start running
+
+    noInterrupts();
+    TCCR3B &= 0xf8; // stop timer, OC3A may be active now
+    TCNT3 = labs(F_CPU / LASER_PWM); // force immediate compare on next tick
+    ICR3 = labs(F_CPU / LASER_PWM); // set new PWM period
+    TCCR3B |= 0x01; // start the timer with proper prescaler value
+    interrupts();
+}
+
+void timer4_init(int pin) {
+	pinMode(pin, OUTPUT);
+    analogWrite(pin, 1);  // let Arduino setup do it's thing to the PWM pin
+
+    TCCR4B = 0x00;  // stop Timer4 clock for register updates
+    TCCR4A = 0x82; // Clear OC4A on match, fast PWM mode, lower WGM4x=14
+    ICR4 = labs(F_CPU / LASER_PWM); // clock cycles per PWM pulse
+    OCR4A = labs(F_CPU / LASER_PWM) - 1; // ICR4 - 1 force immediate compare on next tick
+    TCCR4B = 0x18 | 0x01; // upper WGM4x = 14, clock sel = prescaler, start running
+
+    noInterrupts();
+    TCCR4B &= 0xf8; // stop timer, OC4A may be active now
+    TCNT4 = labs(F_CPU / LASER_PWM); // force immediate compare on next tick
+    ICR4 = labs(F_CPU / LASER_PWM); // set new PWM period
+    TCCR4B |= 0x01; // start the timer with proper prescaler value
+    interrupts();
+}
+
+void laser_init()
+{
+  // Initialize timers for laser intensity control
+  #if LASER_CONTROL == 1
+    if (LASER_FIRING_PIN == 2 || LASER_FIRING_PIN == 3 || LASER_FIRING_PIN == 5) timer3_init(LASER_FIRING_PIN);
+    if (LASER_FIRING_PIN == 6 || LASER_FIRING_PIN == 7 || LASER_FIRING_PIN == 8) timer4_init(LASER_FIRING_PIN);
+  #endif
+  #if LASER_CONTROL == 2
+    if (LASER_INTENSITY_PIN == 2 || LASER_INTENSITY_PIN == 3 || LASER_INTENSITY_PIN == 5) timer3_init(LASER_INTENSITY_PIN);
+    if (LASER_INTENSITY_PIN == 6 || LASER_INTENSITY_PIN == 7 || LASER_INTENSITY_PIN == 8) timer4_init(LASER_INTENSITY_PIN);
+  #endif
+}
 
 
 #endif // CORE_PWM_H

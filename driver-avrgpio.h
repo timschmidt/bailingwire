@@ -4,7 +4,7 @@
 input: mirror gpio frobbing functions
 output: ?
 
-
+// to save program memory, implement a single pin-frobbing function with a lookup table for pin addresses, which takes pin to frob, and state as an argument - pin ID to frob
 
 /**
 // comparator predicate: returns true if a < b, false otherwise
