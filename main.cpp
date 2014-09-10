@@ -5,6 +5,12 @@
 //  - call a per-coordinate system auto probing for axis _ (how are endstops / sensors specified?)
 //  - 
 
+// test memory consumption / efficiency / api
+// c linked lists: https://gist.github.com/obedrios/2957439
+// cpp linked lists: https://gist.github.com/obedrios/3008397
+// c calloc / free: http://www.cplusplus.com/reference/cstdlib/calloc/ http://www.cplusplus.com/reference/cstdlib/free/
+// cpp new / delete: http://www.cplusplus.com/reference/new/operator%20new/
+
 
 void setup() {
 	// machine configuration struct
