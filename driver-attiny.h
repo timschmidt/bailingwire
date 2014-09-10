@@ -1,5 +1,8 @@
-#ifndef DRIVER_FTDISERIAL_H
-#define DRIVER_FTDISERIAL_H
+#ifndef DRIVER_ATTINY_H
+#define DRIVER_ATTINY_H
+
+// input: function pointer serial interface
+// output: ?
 
 /*
   HardwareSerial.h - Hardware serial library for Wiring
@@ -480,4 +483,4 @@ void MarlinSerial::printFloat(double number, uint8_t digits)
 MarlinSerial MSerial;
 #endif // !AT90USB
 
-#endif // DRIVER_FTDISERIAL_H
+#endif // DRIVER_ATTINY_H

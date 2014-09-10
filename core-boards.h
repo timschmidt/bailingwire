@@ -25,6 +25,29 @@
  */
  
  /**
+ * Atmega 324p
+ * 
+ * 32kb flash
+ * 1kb EEPROM
+ * 2kb SRAM
+ * 2x 8 bit timer / counters - prescaler, compare
+ * 1x 16bit timer / counter - prescaler, compare, capture
+ * 1x real time counter
+ * 6x PWM channels
+ * 8-channel 10-bit ADC
+ * programmable uart
+ * master / slave SPI interface
+ * i2c interface
+ * watchdog
+ * analog comparator
+ * interrupt and wake-up on pin change
+ * programmable brown-out protection
+ * Six Sleep Modes: Idle, ADC Noise Reduction, Power-save, Power-down, Standby, and Extended Standby
+ * 32 Programmable I/O Lines
+ * 
+ */
+ 
+ /**
   * 
   * Atmega 2560
   * 
