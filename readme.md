@@ -29,3 +29,8 @@ Control
 Coordinates
 -----------
 - provide function pointers with compatible interfaces to convert from cartesian coordinates (used in the core kinematic models) and per-axis native coordinates in real, automatically converted to per-axis native units
+
+Service
+-------
+- runs in the idle loop
+- 
