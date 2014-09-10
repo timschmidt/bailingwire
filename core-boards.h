@@ -74,5 +74,13 @@
   * 86 programmable i/o lines
   */
   
+   /**
+  * 
+  * Parallax Propeller
+  * 
+  * 8 cores
+  * 2 timers per core
+  * 32 programmable i/o lines accessible to all cores
+  */
   
 #endif // CORE_BOARDS_H
