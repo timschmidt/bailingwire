@@ -1,3 +1,14 @@
+Serial Communications Protocol:
+  Packet-based, binary, one device 'command' per packet.  Each packet is prefixed by a XX byte device ID, and each packet's payload is 0 to 32 bytes long.  All packets, reguardless of address prefix, are sent to the same serial connection from the HOST.  The DEVICE on the recieving side of that serial connection will route the packets apropriately.
+
+  Packet / Command IDs for serial-retry - incremental, random, length, location?
+  
+  Checksums - see nRF datasheet
+  
+  
+
+Structure:
+
 Core
 ----
 - Configured at compile time
@@ -33,4 +44,4 @@ Coordinates
 Service
 -------
 - runs in the idle loop
-- 
+
