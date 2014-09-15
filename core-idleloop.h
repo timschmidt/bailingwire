@@ -4,7 +4,7 @@
 while (nothing bad happens)
 {
 	
-	iterate through an array of function pointers to services, which have been pushed onto the array by a serial command
+	iterate through an array of function pointers to services, which have been pushed onto the linked list by a serial command
 	
 }
 

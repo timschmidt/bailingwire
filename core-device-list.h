@@ -1,5 +1,5 @@
-#ifndef CORE_CONFIGURATION_H
-#define CORE_CONFIGURATION_H
+#ifndef CORE_DEVICE_LIST_H
+#define CORE_DEVICE_LIST_H
 
 //  - change name to core-device-list.h?
 //  - populate the list
@@ -86,4 +86,4 @@ function remove_parent(struct *device, struct *parent)
 	free(parent);
 };
 
-#endif // CORE_CONFIGURATION_H
+#endif // CORE_DEVICE_LIST_H

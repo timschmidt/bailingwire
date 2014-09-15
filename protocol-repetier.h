@@ -1,7 +1,8 @@
-#ifndef CORE_PROTOCOL_H
-#define CORE_PROTOCOL_H
+#ifndef PROTOCOL_REPETIER_H
+#define PROTOCOL_REPETIER_H
 
 // add broadcast enumeration packet
+// split into protocol-gcode, protocol-opensbp, protocol-repetier
 
 // can this be represented in a more memory efficient way?  lookup tables?
 
@@ -1257,4 +1258,4 @@
     SERIAL_ECHOLNPGM("\"");
   }
 
-#endif // CORE_PROTOCOL_H
+#endif // PROTOCOL_REPETIER_H

@@ -1,7 +1,9 @@
 #ifndef CORE_GPIO_H
 #define CORE_GPIO_H
 
-// input: pin ID to frob
-// output: function pointer to frob the pin
+function frob_gpio()
+{
+	
+};
 
 #endif // CORE_GPIO_H
