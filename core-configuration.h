@@ -48,8 +48,10 @@ function last_device()
     }
 };
 
-new_device()
+function add_device(int device_type, int driver, int parent)
 {
+	last_device();
+	
     /* Creates a device at the end of the list */
     device->next = cmalloc( sizeof(struct device_list) );
 
@@ -66,11 +68,22 @@ new_device()
     return 0;
 };
 
-function register_device(){
-	last_device();
-	new_device();
+function remove_device(struct *device)
+{
+	// point the previous device at the next device (special cases: removing the root device - point root at next device, removing the last device - point next at 0)
+	free(device);
+};
+
+function add_parent(struct *device, struct *parent)
+{
 	
 	
+};
+
+function remove_parent(struct *device, struct *parent)
+{
+	// point the previous parent at the next parent (special cases: removing the root parent - point root at next parent, removing the last parent - point next at nop function)
+	free(parent);
 };
 
 #endif // CORE_CONFIGURATION_H
