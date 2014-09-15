@@ -1,10 +1,6 @@
 #ifndef CORE_BOARDS_H
 #define CORE_BOARDS_H
 
-// bitmask describing the capabilities of a single pin
-// data structure holding all those bitmasks for each board
-// everything that provides GPIO provides a list of these bitmasks for each of it's pins.
-
 /**
  * Atmega 328p
  * 
@@ -27,6 +23,12 @@
  * 23 Programmable I/O Lines
  * 
  */
+ register_device(eeprom);
+ register_device(8 bit timer);
+ register_device(8 bit timer);
+ register_device(16bit timer);
+ register_device(gpio pin);
+ 
  
 /**
  * Atmega 324p

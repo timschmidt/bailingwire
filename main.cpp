@@ -13,7 +13,7 @@
 
 
 void setup() {
-	// machine configuration struct
+
 }
 
 void loop() {
