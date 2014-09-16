@@ -1,9 +1,6 @@
 #ifndef CORE_DEVICE_LIST_H
 #define CORE_DEVICE_LIST_H
 
-//  - change name to core-device-list.h?
-//  - populate the list
-
 struct device_list
 {
   int device_type;
@@ -20,6 +17,8 @@ struct device_list
 struct device_list *root_device;
 /* This will point to each device as it traverses the list */
 struct device_list *device;
+/* This will point to each parent device as it traverses the list of parents */
+struct parents *parent;
 
 function init_device_list()
 {
@@ -63,8 +62,10 @@ function add_device(int device_type, int driver, int parent)
         return 0;
     }
     /* initialize the new memory */
-    device->next = 0;
-
+    device->next		= 0;
+    device->device_type = device_type;
+    device->driver      = driver;
+    device->parent      = parent;
     return 0;
 };
 
