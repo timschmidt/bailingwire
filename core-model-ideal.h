@@ -5,9 +5,6 @@
 
 // timestamped desired machine state in a 'perfect world'
 
-// How do we connect the ideal model to the past model, using per-axis control functions, to activate our control logic?
-// motion model service?  core-stepper / core-servo interrupts?
-
-// calculate length based on struct size, available ram at compile time 
+// iterates through axis devices?
 
 #endif // CORE_MODEL_IDEAL_H

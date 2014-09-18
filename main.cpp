@@ -13,7 +13,8 @@
 
 
 void setup() {
-
+	buffer = calloc(6 * 32); // buffer 6x 32byte commands
+	int *current_command = &buffer;
 }
 
 void loop() {

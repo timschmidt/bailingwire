@@ -1,6 +1,0 @@
-#ifndef DEVICE_WINDSENSOR_H
-#define DEVICE_WINDSENSOR_H
-
-
-
-#endif // DEVICE_WINDSENSOR_H

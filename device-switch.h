@@ -1,6 +1,0 @@
-#ifndef DEVICE_SWITCH_H
-#define DEVICE_SWITCH_H
-
-
-
-#endif // DEVICE_SWITCH_H

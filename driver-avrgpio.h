@@ -16,7 +16,7 @@ struct driver
 
 // calloc memory sufficient for a copy of the driver struct, populate it with all the state for that instance, and return a pointer to the memory address of the struct
 
- = cmalloc( sizeof(struct driver) );
+ = calloc( sizeof(struct driver) );
 
 // to save program memory, implement a single pin-frobbing function with a lookup table for pin addresses, which takes pin to frob, and state as an argument - pin ID to frob
 

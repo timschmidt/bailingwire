@@ -1,6 +1,0 @@
-#ifndef DEVICE_HEATER_H
-#define DEVICE_HEATER_H
-
-
-
-#endif // DEVICE_HEATER_H

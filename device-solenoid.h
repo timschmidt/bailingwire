@@ -1,6 +1,0 @@
-#ifndef DEVICE_SOLENOID_H
-#define DEVICE_SOLENOID_H
-
-
-
-#endif // DEVICE_SOLENOID_H
