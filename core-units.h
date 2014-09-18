@@ -1,7 +1,7 @@
 #ifndef CORE_UNITS_H
 #define CORE_UNITS_H
 
-// specify per-axis figures in native units, convert on demand
+// time, distance, volume, angle, 
 
 int mm = 1;
 int cm = 10 * mm;
