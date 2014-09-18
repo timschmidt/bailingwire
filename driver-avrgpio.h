@@ -1,8 +1,22 @@
 #ifndef DRIVER_AVRGPIO_H
 #define DRIVER_AVRGPIO_H
 
-input: mirror gpio frobbing functions
-output: ?
+int gpio(int pin, int pin_state)
+{
+	
+	return 1;
+}
+
+struct driver
+{
+  int (*gpioPtr)(int,int);
+  
+  
+};
+
+// calloc memory sufficient for a copy of the driver struct, populate it with all the state for that instance, and return a pointer to the memory address of the struct
+
+ = cmalloc( sizeof(struct driver) );
 
 // to save program memory, implement a single pin-frobbing function with a lookup table for pin addresses, which takes pin to frob, and state as an argument - pin ID to frob
 
@@ -15,19 +29,6 @@ struct IntComparator
     return a < b;
   }
 };
-...
-// An overload of std::sort is:
-template <class RandomIt, class Compare>
-void sort(RandomIt first, RandomIt last, Compare comp);
-...
-int main()
-{
-    std::vector<int> items { 4, 3, 1, 2 };
-    std::sort(items.begin(), items.end(), IntComparator());
-    return 0;
-}
-*/
-
 
 /** Function pointer example:
 Let's start with a basic function which we will be pointing to:
@@ -79,4 +80,4 @@ myFuncDef functionFactory(int n) {
  end example
  */
 
-#endif // DRIVER_NRF24L01_H
+#endif // DRIVER_AVRGPIO_H
