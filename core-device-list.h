@@ -1,58 +1,34 @@
 #ifndef CORE_DEVICE_LIST_H
 #define CORE_DEVICE_LIST_H
 
-struct device_list
-{
-  int device_type;
-  int driver;
-  struct parents
-  {
-	  int device;
-	  struct parents *next;
-  };
-  struct device_list *next;
-};
-
-/* This won't change, or we would lose the list in memory */
-struct device_list *root_device;
-/* This will point to each device as it traverses the list */
-struct device_list *device;
-/* This will point to each parent device as it traverses the list of parents */
-struct parents *parent;
+int *device_list;
 
 function init_device_list()
 {
-    root_device = cmalloc( sizeof(struct device_list) );
-    root_device->next = 0;
-    device = root_device;
-};
-
-function next_device()
-{    
-    if ( device != 0 ) {
-        while ( device->next != 0)
-        {
-            device = device->next;
-        }
-    }
-};
-
-function last_device()
-{
-	while ( device != 0 ) {
-        while ( device->next != 0)
-        {
-            device = device->next;
-        }
-    }
+    device_list = calloc( 1 );
+    // store the root device
 };
 
 function add_device(int device_type, int driver, int parent)
 {
-	last_device();
+	// realloc's *device_list to (devices * 1 byte), updating device_list, and stores the new device's data in the last position.
 	
-    /* Creates a device at the end of the list */
-    device->next = cmalloc( sizeof(struct device_list) );
+	struct device_list
+	{
+		int device_type;
+		int driver;
+		struct parents
+		{
+			int device;
+			struct parents *next;
+		};
+		struct device_list *next;
+	};
+	
+	/* This will point to each parent device as it traverses the list of parents */
+	struct parents *parent;
+	
+    device->next = calloc( sizeof(struct device_list) );
 
     device = device->next;
 
@@ -71,20 +47,7 @@ function add_device(int device_type, int driver, int parent)
 
 function remove_device(struct *device)
 {
-	// point the previous device at the next device (special cases: removing the root device - point root at next device, removing the last device - point next at 0)
-	free(device);
-};
-
-function add_parent(struct *device, struct *parent)
-{
-	
-	
-};
-
-function remove_parent(struct *device, struct *parent)
-{
-	// point the previous parent at the next parent (special cases: removing the root parent - point root at next parent, removing the last parent - point next at nop function)
-	free(parent);
+	// moves device-to-be-removed to the last position, realloc's *device_list to (devices * 1 byte), updating device_list, and stores the new device's data in the last position.
 };
 
 #endif // CORE_DEVICE_LIST_H
