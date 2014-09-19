@@ -6,7 +6,7 @@ function step(int direction)
 	analogWrite(gpio, brightness);
 }
 
-struct function_pointers
+struct device_descriptor
 {
 	int &step(int direction);
 	int *gpio_1;
@@ -21,7 +21,7 @@ struct function_pointers
 // calloc memory sufficient for a copy of the driver struct, populate it with all the state for that instance, and return a pointer to the memory address of the struct
 function init_uln2003_stepper()
 {
-	int uln2003 = calloc( sizeof(struct function_pointers) );
+	int uln2003 = calloc( sizeof(struct device_descriptor) );
 	if (uln2003 = 0)
 	{
 		//fail - out of memory

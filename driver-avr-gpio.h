@@ -5,7 +5,7 @@ function set_pin(int pin, int state){
 	digitalWrite(pin, state);
 }
 
-struct function_pointers
+struct device_descriptor
 {
 	int &set_pin(int pin, int state);
 	int pin;
@@ -14,7 +14,7 @@ struct function_pointers
 
 function init_avr_gpio(int pin)
 {
-	int avr_gpio = calloc( sizeof(struct function_pointers) );
+	int avr_gpio = calloc( sizeof(struct device_descriptor) );
 	if (avr_gpio !=0)
 	{
 		*(avr_gpio + 1) = pin;
