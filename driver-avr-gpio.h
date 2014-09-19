@@ -12,8 +12,13 @@ struct function_pointers
 	int state;
 }
 
-function init_avr_gpio()
+function init_avr_gpio(int pin)
 {
-	return calloc( sizeof(struct function_pointers) );
+	int avr_gpio = calloc( sizeof(struct function_pointers) );
+	if (avr_gpio !=0)
+	{
+		*(avr_gpio + 1) = pin;
+	}
+	return avr_gpio;
 }
 #endif // DRIVER_AVR_GPIO_H
