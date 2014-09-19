@@ -7,7 +7,7 @@ function set_pin(int pin, int state){
 
 struct function_pointers
 {
-	int &set_pin;
+	int &set_pin(int pin, int state);
 	int pin;
 	int state;
 }

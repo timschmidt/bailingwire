@@ -7,7 +7,7 @@ function set_led(int gpio, float brightness){
 
 struct function_pointers
 {
-	int &set_led(brightness);
+	int &set_led(int gpio, int brightness);
 	int *gpio;
 	float brightness;
 }
