@@ -7,7 +7,6 @@
 - Board-specific
 - Hardware-agnostic high-level device interfaces
 - transparent unit conversion
-- The interface a hardware-specific driver codes against
 
 ### Driver
 - a struct containing data and pointers to one or more functions.
@@ -23,7 +22,9 @@
 
 ### Feedback
 - comsumed by the i/o interrupt handler
-- processes the interrupt, calling an axis-specific feedback function pointer, calling the configured feedback compatible function, who's duty it is to update the real-time model of the machine for the triggered axis.
+- i/o interrupt handler runs when a hardware interrupt happens (a pin changes state, or serial packet is recieved, etc.)
+- the i/o interrupt handler passes calls the 'state-change' function pointed to by the feedback struct
+- the state-change function performs a driver-specific calculation and updates/returns? the associated axis' position
 
 ### Control
 - algorithms for determining when a machine should act based on sensor input
