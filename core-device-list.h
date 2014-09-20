@@ -19,39 +19,39 @@
 #define CORE_DEVICE_LIST_H
 
 // Device types (function call interfaces)
-// 1: accelerometer 
-// 2: barometer
-// 3: battery - check status, time left
-// 4: color sensor - get color
-// 5: conductivity sensor - get conductivity
-// 6: current sensor - get current
-// 7: distance sensor - get distance
-// 8: extruder - extrude X mm? ml?
-// 9: fan - set fan speed (percent)
-// 10: flow sensor - get flow (volume / time)
-// 11: gpio - 
-// 12: heater - 
-// 13: humidity - 
-// 14: laser - 
-// 15: lcd - 
-// 16: led - set light intensity
-// 17: light sensor - 
-// 18: motor - move (direction, distance, time)
-// 19: ph sensor - 
-// 20: pump - 
-// 21: relay - 
-// 22: rtc - 
-// 23: sd - 
-// 24: servo - 
-// 25: soil moisture - 
-// 26: solenoid - 
-// 27: stepper - 
-// 28: switch - 
-// 29: temp sensor - 
-// 30: valve - 
-// 31: voltage sensor - 
-// 32: wind sensor - 
-// 33: feedback - encoder wheel, quadrature, etc.
+#define DEVICE_TYPE_ACCELLEROMETER		1
+#define DEVICE_TYPE_BAROMETER 			2
+#define DEVICE_TYPE_BATTERY				3 // check status, time left
+#define DEVICE_TYPE_COLOR_SENSOR		4 // get color
+#define DEVICE_TYPE_CONDUCTIVITY_SENSOR	5 // get conductivity
+#define DEVICE_TYPE_CURRENT_SENSOR		6 // get current
+#define DEVICE_TYPE_DISTANCE_SENSOR		7 // get distance
+#define DEVICE_TYPE_EXTRUDER			8 // extrude X mm? ml?
+#define DEVICE_TYPE_FAN					9 // set fan speed (percent)
+#define DEVICE_TYPE_FLOW_SENSOR			10 // get flow (volume / time)
+#define DEVICE_TYPE_GPIO				11
+#define DEVICE_TYPE_HEATER				12
+#define DEVICE_TYPE_HUMIDITY			13
+#define DEVICE_TYPE_LASER				14
+#define DEVICE_TYPE_LCD					15
+#define DEVICE_TYPE_LED					16 // set light intensity
+#define DEVICE_TYPE_LIGHT_SENSOR		17
+#define DEVICE_TYPE_MOTOR				18 // move (direction, distance, time)
+#define DEVICE_TYPE_PH_SENSOR			19
+#define DEVICE_TYPE_PUMP				20
+#define DEVICE_TYPE_RELAY				21
+#define DEVICE_TYPE_RTC					22
+#define DEVICE_TYPE_SD					23
+#define DEVICE_TYPE_SERVO				24
+#define DEVICE_TYPE_SOIL_MOISTURE		25
+#define DEVICE_TYPE_SOLENOID			26
+#define DEVICE_TYPE_STEPPER				27
+#define DEVICE_TYPE_SWITCH				28
+#define DEVICE_TYPE_TEMP_SENSOR			29
+#define DEVICE_TYPE_VALVE				30
+#define DEVICE_TYPE_VOLTAGE_SENSOR		31
+#define DEVICE_TYPE_WIND_SENSOR			32
+#define DEVICE_TYPE_FEEDBACK			33 // 33: feedback - encoder wheel, quadrature, etc.
 
 /*
  * Loading a Driver:

@@ -20,11 +20,13 @@
 
 function set_pin(*device_descriptor, state){
 	// craft & issue i2c packet
-	int pin = *(device_descriptor + 1);
+	int pin = *(device_descriptor + 2);
+	int *(device_descriptor+3) = state;
 }
 
 struct device_descriptor
 {
+	int device_type = DEVICE_TYPE_GPIO;
 	int &set_pin(int *device_descriptor, state);
 	int pin;
 	int state;
@@ -35,7 +37,7 @@ function init_8754_i2c_gpio(int pin)
 	int i2c_gpio = calloc( sizeof(struct device_descriptor) );
 	if (i2c_gpio !=0)
 	{
-		*(i2c_gpio + 1) = pin;
+		*(i2c_gpio + 2) = pin;
 	}
 	return i2c_gpio;
 }
