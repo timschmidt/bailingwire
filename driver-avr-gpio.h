@@ -1,5 +1,4 @@
-/*
- *  This file is part of the bailingwire firmware.
+/*This file is part of the bailingwire firmware.
  *
  *  Bailingwire is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,6 +16,10 @@
  
 #ifndef DRIVER_AVR_GPIO_H
 #define DRIVER_AVR_GPIO_H
+
+#define AVR_GPIO_SET_PIN_STATE 1
+#define AVR_GPIO_PIN 2
+#define AVR_GPIO_STATE 3
 
 struct device_descriptor
 {
@@ -37,13 +40,13 @@ function alloc_avr_gpio()
 
 function init_avr_gpio(int *device_descriptor, int pin, int state)
 {
-	*(device_descriptor + 2) = pin;
-	*(device_descriptor + 1)(*device_descriptor, state);
+	*(device_descriptor + AVR_GPIO_PIN) = pin;
+	*(device_descriptor + AVR_GPIO_SET_PIN_STATE)(*device_descriptor, state);
 }
 
 function set_pin_state(int *device_descriptor, int state)
 {
-	digitalWrite(*(device_descriptor + 3), state);
+	digitalWrite(*(device_descriptor + AVR_GPIO_STATE), state);
 }
 
 #endif // DRIVER_AVR_GPIO_H
