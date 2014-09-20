@@ -37,7 +37,7 @@ function alloc_avr_gpio()
 
 function init_avr_gpio(int *device_descriptor, int pin, int state)
 {
-	*(avr_gpio + 2) = pin;
+	*(device_descriptor + 2) = pin;
 	*(device_descriptor + 1)(*device_descriptor, state);
 }
 
