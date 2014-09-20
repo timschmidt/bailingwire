@@ -18,6 +18,8 @@
 #ifndef CORE_DEVICE_LIST_H
 #define CORE_DEVICE_LIST_H
 
+#include <avr/pgmspace.h>
+
 // Device types (function call interfaces)
 #define DEVICE_TYPE_ACCELLEROMETER		1
 #define DEVICE_TYPE_BAROMETER 			2
@@ -55,23 +57,23 @@
 
 /*
  * Loading a Driver:
- * - find the function pointer to the driver's initialization function in the *drivers array (lookup against another array of text?)
+ * - find the function pointer to the driver's initialization function in the *drivers array
  * - run it.  it will return a pointer to the memory address of the data structure describing the instance of that driver which you have just created.
  * - the first 8 bits of data at the driver's memory address describe the type of interface that driver provides (motor, gpio, fan, etc)
  * - 
  * 
  */
-
+ 
 int device_count;
 int *device_list;
 
 // Drivers:
 // Array pointing to driver initializtion functions
 void (*drivers[10]) = {
+	&init_avr_gpio,
 	&init_8574_i2c_gpio,
 	&init_attiny,
 	&init_avreeprom,
-	&init_avrgpio,
 	&init_avrserial,
 	&init_axis,
 	&init_ftdi,
@@ -79,6 +81,39 @@ void (*drivers[10]) = {
 	&init_qtouch,
 	&init_uln2003
 }
+
+prog_char driver_0[] PROGMEM = "AVR GPIO";
+prog_char driver_1[] PROGMEM = "8574 I2C GPIO Expander";
+prog_char driver_2[] PROGMEM = "ATTiny Serial";
+prog_char driver_3[] PROGMEM = "AVR EEPROM";
+prog_char driver_4[] PROGMEM = "AVR Serial";
+prog_char driver_5[] PROGMEM = "Axis virtual driver";
+prog_char driver_6[] PROGMEM = "FTDI Serial";
+prog_char driver_7[] PROGMEM = "NRF24L01+ Networking";
+prog_char driver_8[] PROGMEM = "QTouch";
+prog_char driver_9[] PROGMEM = "ULN2003 Stepper Motor";
+
+// Then set up a table to refer to our strings.
+PROGMEM const char *driver_descriptions[] =
+{   
+	driver_0,
+	driver_1,
+	driver_2,
+	driver_3,
+	driver_4,
+	driver_5,
+	driver_6,
+	driver_7,
+	driver_8,
+	driver_9
+};
+
+
+
+char buffer[30]; // make sure this is large enough for the largest string it must hold
+strcpy_P(buffer, (char*)pgm_read_word(&(string_table[i]))); // Copy string from program memory into buffer - casts and dereferencing are necessary
+
+
 
 function init_device_list()
 {

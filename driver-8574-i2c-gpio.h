@@ -18,7 +18,11 @@
 #ifndef DRIVER_8754_I2C_GPIO_H
 #define DRIVER_8754_I2C_GPIO_H
 
-function set_pin(*device_descriptor, state){
+function set_pin(*device_descriptor, pin){
+	*(i2c_gpio + 3) = pin;
+}
+
+function set_state(*device_descriptor, state){
 	// craft & issue i2c packet
 	int pin = *(device_descriptor + 2);
 	int *(device_descriptor+3) = state;
@@ -26,20 +30,21 @@ function set_pin(*device_descriptor, state){
 
 struct device_descriptor
 {
+	// Public API
 	int device_type = DEVICE_TYPE_GPIO;
-	int &set_pin(int *device_descriptor, state);
+	int &set_pin(int *device_descriptor, pin);
+	int &set_state(int *device_desriptor, state);
 	int pin;
 	int state;
+	
+	// Private API
+	int i2c_address;
+	int i2c_controller_address;
 }
 
-function init_8754_i2c_gpio(int pin)
+function init_8754_i2c_gpio()
 {
-	int i2c_gpio = calloc( sizeof(struct device_descriptor) );
-	if (i2c_gpio !=0)
-	{
-		*(i2c_gpio + 2) = pin;
-	}
-	return i2c_gpio;
+	return calloc( sizeof(struct device_descriptor) );
 }
 
 #endif // DRIVER_8754_I2C_GPIO_H
