@@ -10,8 +10,13 @@
 - The interface a hardware-specific driver codes against
 
 ### Driver
-- referenced by pointer to a struct which provides a standard device interface in the form of a DEVICE_TYPE identifier, a function pointer to an initialization function, standard device class data and function pointers, and device-specific data and function pointers.
-- provides one, and consumes one or more standard device interfaces
+- a struct containing data and pointers to one or more functions.
+- when the struct is allocated in memory, initialized, and a pointer to it is added to the driver list, it's loaded.
+- first byte is a DEVICE_TYPE identifier
+- second byte is a function pointer to an initialization function
+- followed by device class specific interface function pointers and data at defined offsets
+- followed by driver specific data and function pointers at undefined offsets
+- each driver provides one, and consumes one or more of these pre-defined function pointer interfaces
 - device function cascades from the most abstract device interfaces to the most hardware-specific.
 - standard interfaces defined for GPIO, serial, PWM, ADC, I2C, 1Wire, EEPROM, various I/O expansion ICs, networking ICs, motor control ICs, motors, pumps, solenoids, lights, heaters, fans, servos, sensors (flow, conductivity, ph, light, humidity, temperature, accellerometers, etc.)
 - configurable at run time
