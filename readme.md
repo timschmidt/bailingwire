@@ -9,6 +9,8 @@ Bailingwire uses a powerful hardware abstraction model to provide per-axis runti
  - support for boards with standardized connectors like GROVE
  - first-class support for closed-loop servo and/or stepper control
  - no hard-coded policy (movement rules, overheat protection, etc.), but support for dynamically constructing it
+ - fits in 2kb ram
+ - fits in 32kb flash
 
 ## Structure
 ### Core
