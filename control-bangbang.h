@@ -18,7 +18,39 @@
 #ifndef CONTROL_BANGBANG_H
 #define CONTROL_BANGBANG_H
 
-// input: ?
-// output: ?
+struct control_descriptor
+{
+	// Public API
+	int &control_bangbang(int *control_descriptor, int input);
+	int low_threshold;
+	int high_threshold;
+	
+	//Private API
+	
+}
+
+function alloc_control_bangbang()
+{
+	return calloc( sizeof(struct control_descriptor) );
+}
+
+function init_control_bangbang(int *control_descriptor, float low_threshold, float high_threshold)
+{
+	*(control_descriptor + 1) = low_threshold;
+	*(control_descriptor + 2) = high_threshold;
+}
+
+function control_bangbang(int *control_descriptor, int input)
+{
+	if (input < *(control_descriptor + 1))
+	{
+		return 1;
+	}
+	
+	if (input > *(control_descriptor + 2))
+	{
+		return 0;
+	}
+}
 
 #endif // CONTROL_BANGBANG_H
