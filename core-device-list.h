@@ -18,12 +18,6 @@
 #ifndef CORE_DEVICE_LIST_H
 #define CORE_DEVICE_LIST_H
 
-int device_count;
-int *device_list;
-
-// define public methods, for these objects:
-// calloc memory sufficient for a copy of the driver struct, populate it with all the state for that instance, function pointers to the public methods for that device as implemented by it's driver, and return a pointer to the memory address of the struct
-
 // Device types (function call interfaces)
 // 1: accelerometer 
 // 2: barometer
@@ -58,6 +52,18 @@ int *device_list;
 // 31: voltage sensor - 
 // 32: wind sensor - 
 // 33: feedback - encoder wheel, quadrature, etc.
+
+/*
+ * Loading a Driver:
+ * - find the function pointer to the driver's initialization function in the *drivers array (lookup against another array of text?)
+ * - run it.  it will return a pointer to the memory address of the data structure describing the instance of that driver which you have just created.
+ * - the first 8 bits of data at the driver's memory address describe the type of interface that driver provides (motor, gpio, fan, etc)
+ * - 
+ * 
+ */
+
+int device_count;
+int *device_list;
 
 // Drivers:
 // Array pointing to driver initializtion functions
