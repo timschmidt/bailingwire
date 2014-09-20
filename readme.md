@@ -1,7 +1,7 @@
 Bailingwire Device Control Firmware
 
 Structure:
-
+----------
 Core
 ----
 - Configured at compile time
@@ -37,6 +37,10 @@ Coordinates
 Service
 -------
 - runs in the idle loop
+
+
+Todo:
+ - improve code readability by defining macros, or similar for standard function call interfaces functions, core functions.
 
 
 Serial Communications Protocol Notes:
