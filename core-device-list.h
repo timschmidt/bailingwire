@@ -70,16 +70,16 @@ int *device_list;
 // Drivers:
 // Array pointing to driver initializtion functions
 void (*drivers[10]) = {
-	&init_avr_gpio,
-	&init_8574_i2c_gpio,
-	&init_attiny,
-	&init_avreeprom,
-	&init_avrserial,
-	&init_axis,
-	&init_ftdi,
-	&init_nrf24l01,
-	&init_qtouch,
-	&init_uln2003
+	&alloc_avr_gpio,
+	&alloc_8574_i2c_gpio,
+	&alloc_attiny,
+	&alloc_avreeprom,
+	&alloc_avrserial,
+	&alloc_axis,
+	&alloc_ftdi,
+	&alloc_nrf24l01,
+	&alloc_qtouch,
+	&alloc_uln2003
 }
 
 prog_char driver_0[] PROGMEM = "AVR GPIO";

@@ -22,7 +22,7 @@ struct device_descriptor
 {
 	// Public API
 	int device_type = DEVICE_TYPE_GPIO;
-	int &set_state(int *device_desriptor, state);
+	int &set_state(int *device_desriptor, int state);
 	int pin;
 	int state;
 	
