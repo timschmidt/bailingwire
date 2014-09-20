@@ -21,7 +21,7 @@
 struct control_descriptor
 {
 	// Public API
-	int &control_bangbang(int *control_descriptor, int input);
+	int &control_bangbang(int *control_descriptor, float input);
 	int low_threshold;
 	int high_threshold;
 	
@@ -40,7 +40,7 @@ function init_control_bangbang(int *control_descriptor, float low_threshold, flo
 	*(control_descriptor + 2) = high_threshold;
 }
 
-function control_bangbang(int *control_descriptor, int input)
+function control_bangbang(int *control_descriptor, float input)
 {
 	if (input < *(control_descriptor + 1))
 	{
