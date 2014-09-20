@@ -18,20 +18,11 @@
 #ifndef DRIVER_AVR_GPIO_H
 #define DRIVER_AVR_GPIO_H
 
-function set_pin(int *device_descriptor, int pin){
-	*(avr_gpio + 3) = pin;
-}
-
-function set_state(int *device_descriptor, int state){
-	digitalWrite(*(device_descriptor + 3), state);
-}
-
 struct device_descriptor
 {
 	// Public API
 	int device_type = DEVICE_TYPE_GPIO;
-	int &set_pin(int *device_descriptor, int pin);
-	int &set_state(int *device_descriptor, int state);
+	int &set_pin_state(int *device_descriptor, int state);
 	int pin;
 	int state;
 	
@@ -39,8 +30,20 @@ struct device_descriptor
 	
 }
 
-function init_avr_gpio()
+function alloc_avr_gpio()
 {
 	return calloc( sizeof(struct device_descriptor) );
 }
+
+function init_avr_gpio(int *device_descriptor, int pin, int state)
+{
+	*(avr_gpio + 2) = pin;
+	*(device_descriptor + 1)(*device_descriptor, state);
+}
+
+function set_pin_state(int *device_descriptor, int state)
+{
+	digitalWrite(*(device_descriptor + 3), state);
+}
+
 #endif // DRIVER_AVR_GPIO_H
