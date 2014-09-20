@@ -1,6 +1,0 @@
-#ifndef FEEDBACK_GREYCODE_H
-#define FEEDBACK_GREYCODE_H
-
-
-
-#endif // FEEDBACK_GREYCODE_H

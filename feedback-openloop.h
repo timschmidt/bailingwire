@@ -1,6 +1,0 @@
-#ifndef FEEDBACK_OPENLOOP_H
-#define FEEDBACK_OPENLOOP_H
-
-
-
-#endif // FEEDBACK_OPENLOOP_H

@@ -15,33 +15,9 @@
  *  along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#ifndef CORE_INTERRUPT_H
-#define CORE_INTERRUPT_H
+#ifndef DRIVER_FEEDBACK_OPENLOOP_H
+#define DRIVER_FEEDBACK_OPENLOOP_H
 
-// Dynamically allocate:
-// interrupt for stepper driving - when a driver implementing the stepper interface is loaded, if available.
-// interrupt for pin change watching (solenoid, endstop, feedback encoder) - when a driver implementing the servo interface is loaded, if available.
-// software interrupt to be polled in the idle loop - always available and running.
 
-ISR(TIMER1_COMPA_vect)
-{
-	
-	
-	
-}
 
-ISR(TIMER2_COMPA_vect)
-{
-	
-	
-	
-}
-
-ISR(TIMER3_COMPA_vect)
-{
-	
-	
-	
-}
-
-#endif // CORE_INTERRUPT_H
+#endif // DRIVER_FEEDBACK_OPENLOOP_H
