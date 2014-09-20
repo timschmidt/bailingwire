@@ -1,41 +1,51 @@
 # Bailingwire Device Control Firmware
 
-## Structure:
+Bailingwire uses a powerful hardware abstraction model to provide per-axis runtime reconfigurable geometry, feedback, and control algorithms for a wide variety of actuators, sensors, and other hardware.
+
+## Goals
+ - near 100% runtime reconfigurability
+ - support hot pluggable hardware
+ - per-axis configurable geometry (cartesian, delta, polar, etc.)
+ - support for boards with standardized connectors like GROVE
+ - first-class support for closed-loop servo and/or stepper control
+ - no hard-coded policy (movement rules, overheat protection, etc.), but support for dynamically constructing it
+
+## Structure
 ### Core
-- Configured at compile time
-- Microcontroller-specific
-- Board-specific
-- Hardware-agnostic high-level device interfaces
-- transparent unit conversion
+ - Configured at compile time
+ - Microcontroller-specific
+ - Board-specific
+ - Hardware-agnostic high-level device interfaces
+ - transparent unit conversion
 
 ### Driver
-- a struct containing data and pointers to one or more functions.
-- when the struct is allocated in memory, initialized, and a pointer to it is added to the driver list, it's loaded.
-- first byte is a DEVICE_TYPE identifier
-- second byte is a function pointer to an initialization function
-- followed by device class specific interface function pointers and data at defined offsets
-- followed by driver specific data and function pointers at undefined offsets
-- each driver provides one, and consumes one or more of these pre-defined function pointer interfaces
-- device function cascades from the most abstract device interfaces to the most hardware-specific.
-- standard interfaces defined for GPIO, serial, PWM, ADC, I2C, 1Wire, EEPROM, various I/O expansion ICs, networking ICs, motor control ICs, motors, pumps, solenoids, lights, heaters, fans, servos, sensors (flow, conductivity, ph, light, humidity, temperature, accellerometers, etc.)
-- configurable at run time
+ - a struct containing data and pointers to one or more functions.
+ - when the struct is allocated in memory, initialized, and a pointer to it is added to the driver list, it's loaded.
+ - first byte is a DEVICE_TYPE identifier
+ - second byte is a function pointer to an initialization function
+ - followed by device class specific interface function pointers and data at defined offsets
+ - followed by driver specific data and function pointers at undefined offsets
+ - each driver provides one, and consumes one or more of these pre-defined function pointer interfaces
+ - device function cascades from the most abstract device interfaces to the most hardware-specific.
+ - standard interfaces defined for GPIO, serial, PWM, ADC, I2C, 1Wire, EEPROM, various I/O expansion ICs, networking ICs, motor control ICs, motors, pumps, solenoids, lights, heaters, fans, servos, sensors (flow, conductivity, ph, light, humidity, temperature, accellerometers, etc.)
+ - configurable at run time
 
 ### Feedback
-- comsumed by the i/o interrupt handler
-- i/o interrupt handler runs when a hardware interrupt happens (a pin changes state, or serial packet is recieved, etc.)
-- the i/o interrupt handler passes calls the 'state-change' function pointed to by the feedback struct
-- the state-change function performs a driver-specific calculation and updates/returns? the associated axis' position
+ - comsumed by the i/o interrupt handler
+ - i/o interrupt handler runs when a hardware interrupt happens (a pin changes state, or serial packet is recieved, etc.)
+ - the i/o interrupt handler passes calls the 'state-change' function pointed to by the feedback struct
+ - the state-change function performs a driver-specific calculation and updates/returns? the associated axis' position
 
 ### Control
-- algorithms for determining when a machine should act based on sensor input
-- regulate air/fluid flow, temperature, concentrations in fluids, light intensity, voltage, etc.
-- configurable per-axis, at runtime
+ - algorithms for determining when a machine should act based on sensor input
+ - regulate air/fluid flow, temperature, concentrations in fluids, light intensity, voltage, etc.
+ - configurable per-axis, at runtime
 
 ### Coordinates
-- provide function pointers with compatible interfaces to convert from cartesian coordinates (used in the core kinematic models) and per-axis native coordinates in real, automatically converted to per-axis native units
+ - provide function pointers with compatible interfaces to convert from cartesian coordinates (used in the core kinematic models) and per-axis native coordinates in real, automatically converted to per-axis native units
 
 ### Service
-- runs in the idle loop
+ - runs in the idle loop
 
 
 Todo:
