@@ -1,5 +1,4 @@
-/*
- *  This file is part of the bailingwire firmware.
+/*  This file is part of the bailingwire firmware.
  *
  *  Bailingwire is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -18,30 +17,58 @@
 #ifndef CORE_INTERRUPT_H
 #define CORE_INTERRUPT_H
 
-// Dynamically allocate:
-// interrupt for stepper driving - when a driver implementing the stepper interface is loaded, if available.
-// interrupt for pin change watching (solenoid, endstop, feedback encoder) - when a driver implementing the servo interface is loaded, if available.
-// software interrupt to be polled in the idle loop - always available and running.
+/* Dynamically allocate:
+ * interrupt for stepper driving - when a driver implementing the stepper interface is loaded, if available.
+ * interrupt for pin change watching (solenoid, endstop, feedback encoder) - when a driver implementing the servo interface is loaded, if available.
+ * software interrupt to be polled in the idle loop - always available and running.
+ */
 
-ISR(TIMER1_COMPA_vect)
+// describe timer interrupts or i/o interrupts in the same data structure
+struct interrupt_handler
 {
+	// Public API
 	
+	int &interrupt_handler(int *timer_interrupt, float input);
+	int low_threshold;
+	int high_threshold;
 	
+	//Private API
 	
 }
 
-ISR(TIMER2_COMPA_vect)
-{
+#ifdef AVR328
+	// 16bit counter 
+	ISR(TIMER1_COMPA_vect)
+	{
+		*(interrupt_handler_1)();
+	}
 	
+	// 8bit counter
+	ISR(TIMER2_COMPA_vect)
+	{
+		*(interrupt_handler_2)();
+	}
 	
+	// 8bit counter
+	ISR(TIMER3_COMPA_vect)
+	{
+		*(interrupt_handler_3)();		
+	}
+#endif // AVR328
 	
-}
+#ifdef AVR324
 
-ISR(TIMER3_COMPA_vect)
-{
-	
-	
-	
-}
+#endif // AVR324
+
+#ifdef AVR2560
+
+#endif //AVR2560
+
+#ifdef PROPELLER
+
+#endif // PROPELLER
+
+
+
 
 #endif // CORE_INTERRUPT_H

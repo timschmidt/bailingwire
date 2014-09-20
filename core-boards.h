@@ -42,12 +42,13 @@
  */
  
 #ifdef DEVDUINO_SENSORNODE_2
-add_device(1); // AVR GPIO -- Button
-add_device(1); // AVR GPIO -- LED
-add_device(1); // AVR GPIO -- GROVE Digital Pin 1
-add_device(1); // AVR GPIO -- GROVE Digital Pin 2
-add_device(1); // AVR GPIO -- GROVE Analog Pin 1
-add_device(1); // AVR GPIO -- GROVE Analog Pin 2
+  #define AVR328
+  add_device(1); // AVR GPIO -- Button
+  add_device(1); // AVR GPIO -- LED
+  add_device(1); // AVR GPIO -- GROVE Digital Pin 1
+  add_device(1); // AVR GPIO -- GROVE Digital Pin 2
+  add_device(1); // AVR GPIO -- GROVE Analog Pin 1
+  add_device(1); // AVR GPIO -- GROVE Analog Pin 2
 
 #endif // DEVDUINO_SENSORNODE_2
  
