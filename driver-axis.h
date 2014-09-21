@@ -20,13 +20,10 @@
 // consumes: pointer to: one actuator, one sensor, one feedback device, and one control loop
 // returns: pointer to: one axis
 
-function home(){
-	
-}
-
 struct device_descriptor
 {
-	int &home();
+	// Public API
+	int &axis_home();
 	int *actuator;
 	int *feedback;
 	int *control_loop;
@@ -34,11 +31,23 @@ struct device_descriptor
 	int *native_units;
 	double length;
 	
+	// Private API
+	
 }
 
 function alloc_axis()
 {
 	return calloc( sizeof(struct device_descriptor) );
+}
+
+funtion init_axis()
+{
+	
+}
+
+function axis_home()
+{
+	
 }
 
 #endif // DRIVER_AXIS_H

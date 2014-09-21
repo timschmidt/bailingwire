@@ -27,9 +27,6 @@
  * - 
  * 
  */
- 
-int device_count;
-int *device_list;
 
 // Drivers:
 // Array pointing to driver initializtion functions
@@ -76,28 +73,5 @@ PROGMEM const char *driver_descriptions[] =
 
 char buffer[30]; // make sure this is large enough for the largest string it must hold
 strcpy_P(buffer, (char*)pgm_read_word(&(string_table[i]))); // Copy string from program memory into buffer - casts and dereferencing are necessary
-
-
-
-function init_device_list()
-{
-    device_list = calloc( 1 );
-    // store the root device
-}
-
-function add_device( int driver )
-{
-	// realloc's *device_list to (devices * 1 byte), updating device_list, and stores the new device's data in the last position.
-	int new_device_list = realloc(device_list, device_count + 1);
-	if (new_device_list != 0) device_list = new_device_list;
-	*(device_list + device_count) = (*drivers[driver])();
-	device_count++;
-}
-
-function remove_device( struct *device )
-{
-	// moves device-to-be-removed to the last position, realloc's *device_list to (devices * 1 byte), updating device_list, and stores the new device's data in the last position.
-	
-}
 
 #endif // CORE_DRIVER_LIST_H

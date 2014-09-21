@@ -1,5 +1,4 @@
-/*
- *  This file is part of the bailingwire firmware.
+/*  This file is part of the bailingwire firmware.
  *
  *  Bailingwire is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -18,14 +17,13 @@
 #ifndef DRIVER_ULN2003_STEPPER_H
 #define DRIVER_ULN2003_STEPPER_H
 
-function step(int direction)
-{
-	analogWrite(gpio, brightness);
-}
-
 struct device_descriptor
 {
+	// Public API
+	int device_type = DEVICE_TYPE_STEPPER;
 	int &step(int direction);
+	
+	// Private API
 	int *gpio_1;
 	int *gpio_2;
 	int *gpio_3;
@@ -36,14 +34,19 @@ struct device_descriptor
 }
 
 // calloc memory sufficient for a copy of the driver struct, populate it with all the state for that instance, and return a pointer to the memory address of the struct
+function alloc_uln2003_stepper()
+{
+	return calloc( sizeof(struct device_descriptor) );
+}
+
 function init_uln2003_stepper()
 {
-	int uln2003 = calloc( sizeof(struct device_descriptor) );
-	if (uln2003 = 0)
-	{
-		//fail - out of memory
-	}
-	return uln2003;
+	
+}
+
+function step(int direction)
+{
+	analogWrite(gpio, brightness);
 }
 
 #endif // DRIVER_ULN2003_STEPPER_H

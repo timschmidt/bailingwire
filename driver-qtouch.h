@@ -1,5 +1,4 @@
-/*
- *  This file is part of the bailingwire firmware.
+/*  This file is part of the bailingwire firmware.
  *
  *  Bailingwire is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -15,9 +14,9 @@
  *  along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#ifndef _H
-#define _H
+#ifndef DRIVER_QTOUCH_H
+#define DRIVER_QTOUCH_H
 
 
 
-#endif // _H
+#endif // DRIVER_QTOUCH_H

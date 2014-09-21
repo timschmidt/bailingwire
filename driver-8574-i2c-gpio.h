@@ -37,17 +37,17 @@ function alloc_8574_i2c_gpio()
 
 function init_8574_i2c_gpio(int *device_descriptor, int i2c_address, int i2c_controller_address, int pin, int state)
 {
-	*(device_descriptor[4]) = i2c_address;
-	*(device_descriptor[5]) = i2c_controller_address;
-	*(device_descriptor[2]) = pin;
-	*(device_descriptor[1])(*device_descriptor, state);
+	(*device_descriptor[4]) = i2c_address;
+	(*device_descriptor[5]) = i2c_controller_address;
+	(*device_descriptor[2]) = pin;
+	(*device_descriptor[1])(*device_descriptor, state);
 }
 
 function set_state(int *device_descriptor, int state)
 {
-	int pin = *(device_descriptor[2]);
+	int pin = (*device_descriptor[2]);
 	// craft & issue i2c packet
-	int *(device_descriptor[3]) = state;
+	int (*device_descriptor[3]) = state;
 }
 
 #endif // DRIVER_8754_I2C_GPIO_H

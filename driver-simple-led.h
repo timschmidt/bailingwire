@@ -1,5 +1,4 @@
-/*
- *  This file is part of the bailingwire firmware.
+/*  This file is part of the bailingwire firmware.
  *
  *  Bailingwire is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -20,10 +19,13 @@
 
 struct device_descriptor
 {
-	int DEVICE_TYPE_LIGHT;
+	// Public API
+	int device_type = DEVICE_TYPE_LIGHT;
 	int &set_brightness(int *device_descriptor, float brightness);
-	int *gpio;
 	float brightness;
+	
+	// Private API
+	int *gpio;
 }
 
 // calloc memory sufficient for a copy of the driver struct, populate it with all the state for that instance, and return a pointer to the memory address of the struct
@@ -34,8 +36,8 @@ function alloc_simple_led()
 
 function init_simple_led(int *device_descriptor, int gpio, float brightness)
 {
-	*(device_descriptor[2]) = gpio;
-	*(device_descriptor[3]) = brightness;
+	(*device_descriptor[2]) = gpio;
+	(*device_descriptor[3]) = brightness;
 	analogWrite(gpio, brightness);
 	
 }

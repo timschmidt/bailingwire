@@ -40,19 +40,19 @@ struct interrupt_handler
 	// 16bit counter 
 	ISR(TIMER1_COMPA_vect)
 	{
-		*(interrupt_handler_1)();
+		(*interrupt_handler_1)();
 	}
 	
 	// 8bit counter
 	ISR(TIMER2_COMPA_vect)
 	{
-		*(interrupt_handler_2)();
+		(*interrupt_handler_2)();
 	}
 	
 	// 8bit counter
 	ISR(TIMER3_COMPA_vect)
 	{
-		*(interrupt_handler_3)();		
+		(*interrupt_handler_3)();		
 	}
 #endif // AVR328
 	
