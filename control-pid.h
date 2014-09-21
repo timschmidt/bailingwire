@@ -1,5 +1,4 @@
-/*
- *  This file is part of the bailingwire firmware.
+/*  This file is part of the bailingwire firmware.
  *
  *  Bailingwire is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -18,7 +17,7 @@
 #ifndef CONTROL_PID_H
 #define CONTROL_PID_H
 
-// input: input value, desired value, (paramaters for PID / bangbang / ?)
-// output: ?
+// P depends on the present error, I on the accumulation of past errors, and D is a prediction of future errors
+
 
 #endif // CONTROL_PID_H

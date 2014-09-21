@@ -1,5 +1,4 @@
-/*
- *  This file is part of the bailingwire firmware.
+/*  This file is part of the bailingwire firmware.
  *
  *  Bailingwire is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -36,18 +35,18 @@ function alloc_control_bangbang()
 
 function init_control_bangbang(int *control_descriptor, float low_threshold, float high_threshold)
 {
-	*(control_descriptor + 1) = low_threshold;
-	*(control_descriptor + 2) = high_threshold;
+	*(control_descriptor[1]) = low_threshold;
+	*(control_descriptor[2]) = high_threshold;
 }
 
 function control_bangbang(int *control_descriptor, float input)
 {
-	if (input < *(control_descriptor + 1))
+	if (input < *(control_descriptor[1]))
 	{
 		return 1;
 	}
 	
-	if (input > *(control_descriptor + 2))
+	if (input > *(control_descriptor[2]))
 	{
 		return 0;
 	}
