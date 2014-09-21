@@ -1,5 +1,4 @@
-/*
- *  This file is part of the bailingwire firmware.
+/*  This file is part of the bailingwire firmware.
  *
  *  Bailingwire is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -37,14 +36,9 @@ struct device_descriptor
 	
 }
 
-function init_axis()
+function alloc_axis()
 {
-	int axis = calloc( sizeof(struct device_descriptor) );
-	if (axis !=0)
-	{
-		// populate struct
-	}
-	return axis;
+	return calloc( sizeof(struct device_descriptor) );
 }
 
 #endif // DRIVER_AXIS_H
