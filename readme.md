@@ -50,16 +50,24 @@ Bailingwire uses a powerful hardware abstraction model to provide per-axis runti
  - runs in the idle loop
 
 
-Todo:
+##Todo:
  - improve code readability by defining macros, or similar for standard function call interfaces functions, core functions.
  - build 8 / 32bit compatibility layer for Propeller
  - build propeller cog -> interrupt handler interface in core-interrupt.h
 
 
 Serial Communications Protocol Notes:
-  Packet-based, binary, one device 'command' per packet.  Each packet is prefixed by a XX byte device ID, and each packet's payload is 0 to 32 bytes long.  All packets, reguardless of address prefix, are sent to the same serial connection from the HOST.  The DEVICE on the recieving side of that serial connection will route the packets apropriately.
+ 
+Packet-based, binary, one device 'command' per packet.  Each packet is prefixed by a XX byte device ID, and each packet's payload is 0 to 32 bytes long.  All packets, reguardless of address prefix, are sent to the same serial connection from the HOST.  The DEVICE on the recieving side of that serial connection will route the packets apropriately.
 
-  Packet / Command IDs for serial-retry - incremental, random, length, location?
+Packet / Command IDs for serial-retry - incremental, random, length, location?
   
-  Checksums - see nRF datasheet
+Checksums - see nRF datasheet
 
+
+## License
+Bailingwire is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+Bailingwire is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
