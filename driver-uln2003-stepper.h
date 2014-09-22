@@ -46,7 +46,7 @@ function init_uln2003_stepper()
 
 function step(int direction)
 {
-	analogWrite(gpio, brightness);
+	
 }
 
 #endif // DRIVER_ULN2003_STEPPER_H

@@ -46,7 +46,7 @@ function init_avr_gpio(int *device_descriptor, int pin, int state)
 
 function set_pin_state(int *device_descriptor, int state)
 {
-	digitalWrite((*device_descriptor[AVR_GPIO_STATE]), state);
+	digitalWrite((*device_descriptor[AVR_GPIO_PIN]), state);
 }
 
 #endif // DRIVER_AVR_GPIO_H
