@@ -19,7 +19,9 @@
 
 /* Dynamically allocate:
  * interrupt for stepper driving - when a driver implementing the stepper interface is loaded, if available.
+ *  - realloc memory space for function pointers to interrupt handlers
  * interrupt for pin change watching (solenoid, endstop, feedback encoder) - when a driver implementing the servo interface is loaded, if available.
+ *  - read AVR datasheet for how to set up pin change events
  * software interrupt to be polled in the idle loop - always available and running.
  */
 
