@@ -38,6 +38,27 @@ struct interrupt_handler
 	
 }
 
+// 8 / 16bit versions?
+timed_interrupt()
+{
+	
+}
+
+input_interrupt()
+{
+	
+}
+
+init_timed_interrupt()
+{
+	// shift function pointer to timed_interrupt() into interrupt vector table for ISR1
+}
+
+init_input_interrupt()
+{
+	// shift function pointer to input_interrupt() into interrupt vector table for ISR1
+}
+
 #ifdef AVR328
 	// 16bit counter 
 	ISR(TIMER1_COMPA_vect)
@@ -67,7 +88,7 @@ struct interrupt_handler
 #endif //AVR2560
 
 #ifdef PROPELLER
-
+  // spin up a cog to handle each type of interrupt
 #endif // PROPELLER
 
 
