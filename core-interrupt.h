@@ -25,6 +25,48 @@
  * software interrupt to be polled in the idle loop - always available and running.
  */
 
+extern int regular_interrupt_count;
+extern int *regular_interrupt_list;
+
+function init_regular_interrupt_list()
+{
+    device_list = calloc( sizeof(int) );
+    *device_list = &root_device;
+}
+
+/* realloc's *device_list to (devices * 1 byte), updating device_list,
+ * and stores the new device's data in the last position.
+ */
+function add_device( int driver )
+{
+	int *temp_device_list;
+	if ((temp_device_list = realloc(device_list, sizeof(int) * (device_count + 1))) == NULL)
+	{
+		error( 1 ); // Device list reallocation failed: out of memory
+	}
+	device_list = temp_device_list;
+	device_list[device_count] = drivers[driver];
+	device_count++;
+}
+
+/* Moves the last device into the position of the device being removed,
+ * realloc's *device_list to be one device shorter.
+ * Shrinking an allocation with realloc should always succeed.
+ */
+function remove_device( int device )
+{
+	int i;	
+	for (i = 0; i < device_count; i++) // this will skip the root device, at device_list[0]
+	{
+		if (device_list[i] == device)
+		{
+			device_list[i] = device_list[device_count];
+			break;
+		}
+	}
+	realloc(device_list, sizeof(int) * (device_count - 1));
+}
+
 // describe timer interrupts or i/o interrupts in the same data structure
 struct interrupt_handler
 {

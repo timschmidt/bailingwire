@@ -54,6 +54,8 @@ Bailingwire uses a powerful hardware abstraction model to provide per-axis runti
  - improve code readability by defining macros, or similar for standard function call interfaces functions, core functions.
  - build 8 / 32bit compatibility layer for Propeller
  - build propeller cog -> interrupt handler interface in core-interrupt.h
+ - write constant storage / retrieval functions
+ - pull in code for all GROVE hardware - audit licenses
 
 
 Serial Communications Protocol Notes:

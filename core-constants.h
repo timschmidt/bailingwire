@@ -32,14 +32,19 @@
 array prog_char[3] PROGMEM = ["a", "b", "c"];
 
 // Error messages go here:
-// 1: Device list reallocation failed: out of memory
+prog_char error_message_device_memory[] PROGMEM = "Device list reallocation failed: out of memory";
 
-/* Multpliers for unit conversion
- * We use multiplication for speed
+const char *error_messages[] =
+{
+   error_message_device_memory
+};
+
+/* Multpliers for unit conversion - we use multiplication for speed.
+ * These should always be stored in SRAM for the same reason.
  * float * float = 2 cycles
  * float / float = 5,000 cycles
  */
-extern array float unit_conversions[5] = [
+extern float unit_conversions[5] = [
 	1,			// millimeter
 	1 / 10,		// centimeter
 	1 / 1000,	// meter
