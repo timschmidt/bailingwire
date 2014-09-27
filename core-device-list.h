@@ -64,7 +64,9 @@ function init_device_list()
     *device_list = &root_device;
 }
 
-// realloc's *device_list to (devices * 1 byte), updating device_list, and stores the new device's data in the last position.
+/* realloc's *device_list to (devices * 1 byte), updating device_list,
+ * and stores the new device's data in the last position.
+ */
 function add_device( int driver )
 {
 	int *temp_device_list;
@@ -77,14 +79,14 @@ function add_device( int driver )
 	device_count++;
 }
 
+/* Moves the last device into the position of the device being removed,
+ * realloc's *device_list to be one device shorter.
+ * Shrinking an allocation with realloc should always succeed.
+ */
 function remove_device( int device )
 {
-	/* Moves the last device into the position of the device being removed,
-	 * realloc's *device_list to be one device shorter.
-	 * Shrinking an allocation with realloc should always succeed.
-	 */
 	int i;	
-	for (i = 0; i < device_count; i++)
+	for (i = 0; i < device_count; i++) // this will skip the root device, at device_list[0]
 	{
 		if (device_list[i] == device)
 		{

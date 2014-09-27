@@ -18,12 +18,33 @@
 #ifndef CORE_UNITS_H
 #define CORE_UNITS_H
 
-// time, distance, volume, angle, 
+/* Use multiplication to convert units for speed
+ * float * float = 2 cycles
+ * float / float = 5,000 cycles
+ */
+void convert_time(float time, int units)
+{
+	return unit_conversions[units] * time;
+}
 
-int mm = 1;
-int cm = 10 * mm;
-int m = 1000 * mm;
-float inch = 25.4 * mm;
+void convert_distance(float distance, int units)
+{
+	return unit_conversions[units] * distance;
+}
 
+void convert_volume(float volume, int units)
+{
+	return unit_conversions[units] * volume;
+}
+
+void convert_speed(float speed, int units)
+{
+	return unit_conversions[units] * speed;
+}
+
+void convert_angle(float angle, int units)
+{
+	return unit_conversions[units] * angle;
+}
 
 #endif // CORE_UNITS_H

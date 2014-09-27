@@ -33,5 +33,18 @@ array prog_char[3] PROGMEM = ["a", "b", "c"];
 
 // Error messages go here:
 // 1: Device list reallocation failed: out of memory
+
+/* Multpliers for unit conversion
+ * We use multiplication for speed
+ * float * float = 2 cycles
+ * float / float = 5,000 cycles
+ */
+extern array float unit_conversions[5] = [
+	1,			// millimeter
+	1 / 10,		// centimeter
+	1 / 1000,	// meter
+	1 / 25.4,	// inch
+	1 / 304.8	// foot
+]
   
 #endif // CORE_CONSTANTS_H
