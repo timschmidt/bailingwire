@@ -94,6 +94,7 @@ function remove_device( int device )
 			break;
 		}
 	}
+	free(device);
 	realloc(device_list, sizeof(int) * (device_count - 1));
 }
 
