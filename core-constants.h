@@ -1,5 +1,4 @@
-/*
- *  This file is part of the bailingwire firmware.
+/*  This file is part of the bailingwire firmware.
  *
  *  Bailingwire is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -18,6 +17,8 @@
 #ifndef CORE_CONSTANTS_H
 #define CORE_CONSTANTS_H
 
+// #ifdefs / functions for storing and retrieving constants (at compile time) in program space, EEPROM, or SRAM
+
 #include <avr/pgmspace.h>
 
 /*prog_char      - a signed char (1 byte) -127 to 128
@@ -29,5 +30,8 @@
  */
 
 array prog_char[3] PROGMEM = ["a", "b", "c"];
+
+// Error messages go here:
+// 1: Device list reallocation failed: out of memory
   
 #endif // CORE_CONSTANTS_H

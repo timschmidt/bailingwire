@@ -20,6 +20,7 @@
 #include <avr/pgmspace.h>
 
 // Device types (function call interfaces)
+// Move to core-constants
 #define DEVICE_TYPE_ACCELLEROMETER		1
 #define DEVICE_TYPE_BAROMETER 			2
 #define DEVICE_TYPE_BATTERY				3 // check status, time left
@@ -54,28 +55,44 @@
 #define DEVICE_TYPE_WIND_SENSOR			32
 #define DEVICE_TYPE_FEEDBACK			33 // 33: feedback - encoder wheel, quadrature, etc.
 
-int device_count;
-int *device_list;
+extern int device_count;
+extern int *device_list;
 
 function init_device_list()
 {
-    device_list = calloc( 1 );
-    // store the root device
+    device_list = calloc( sizeof(int) );
+    *device_list = &root_device;
 }
 
+// realloc's *device_list to (devices * 1 byte), updating device_list, and stores the new device's data in the last position.
 function add_device( int driver )
 {
-	// realloc's *device_list to (devices * 1 byte), updating device_list, and stores the new device's data in the last position.
-	int new_device_list = realloc(device_list, device_count + 1);
-	if (new_device_list != 0) device_list = new_device_list;
-	(*device_list[device_count]) = (*drivers[driver])();
+	int *temp_device_list;
+	if ((temp_device_list = realloc(device_list, sizeof(int) * (device_count + 1))) == NULL)
+	{
+		error( 1 ); // Device list reallocation failed: out of memory
+	}
+	device_list = temp_device_list;
+	device_list[device_count] = drivers[driver];
 	device_count++;
 }
 
-function remove_device( struct *device )
+function remove_device( int device )
 {
-	// moves device-to-be-removed to the last position, realloc's *device_list to (devices * 1 byte), updating device_list, and stores the new device's data in the last position.
-	
+	/* Moves the last device into the position of the device being removed,
+	 * realloc's *device_list to be one device shorter.
+	 * Shrinking an allocation with realloc should always succeed.
+	 */
+	int i;	
+	for (i = 0; i < device_count; i++)
+	{
+		if (device_list[i] == device)
+		{
+			device_list[i] = device_list[device_count];
+			break;
+		}
+	}
+	realloc(device_list, sizeof(int) * (device_count - 1));
 }
 
 #endif // CORE_DEVICE_LIST_H

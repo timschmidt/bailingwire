@@ -30,6 +30,7 @@
 
 // Drivers:
 // Array pointing to driver initializtion functions
+// Move to core-constants
 void (*drivers[10]) = {
 	&alloc_avr_gpio,
 	&alloc_8574_i2c_gpio,

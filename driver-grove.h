@@ -1,5 +1,4 @@
-/*
- *  This file is part of the bailingwire firmware.
+/*  This file is part of the bailingwire firmware.
  *
  *  Bailingwire is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -15,8 +14,10 @@
  *  along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#ifndef CORE_GROVE_H
-#define CORE_GROVE_H
+#ifndef DRIVER_GROVE_H
+#define DRIVER_GROVE_H
+
+// amalgamations of pins in various configurations
 
 // enable / disable ports for hot-unplugging
 
@@ -35,5 +36,4 @@
 // spi
 // children: one spi bus
 
-
-#endif // CORE_GROVE_H
+#endif // DRIVER_GROVE_H

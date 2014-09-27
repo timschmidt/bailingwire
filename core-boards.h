@@ -41,7 +41,13 @@
  */
  
 #ifdef DEVDUINO_SENSORNODE_2
-  #define AVR328
+  struct root_device
+  {
+	  // Public API
+	  int device_type = DEVICE_TYPE_ROOT
+	  
+	  // Private API
+  }
   add_device(1); // AVR GPIO -- Button
   add_device(1); // AVR GPIO -- LED
   add_device(1); // AVR GPIO -- GROVE Digital Pin 1
