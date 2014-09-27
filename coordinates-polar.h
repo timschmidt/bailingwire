@@ -23,4 +23,15 @@
 
 // Three, or two coordinates?  In what polar configuration?  Polar/linear Linear/Polar?
 
+void cartesian_to_delta()
+{
+	radius = sqrt(x^2 + y^2);
+	angle = arctan(y / x);
+}
+
+void delta_to_cartesian()
+{
+	
+}
+
 #endif // COORDINATES_POLAR_H
