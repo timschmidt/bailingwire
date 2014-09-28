@@ -17,16 +17,28 @@
 #ifndef CORE_INTERRUPT_H
 #define CORE_INTERRUPT_H
 
-/* Dynamically allocate:
- * interrupt for stepper driving - when a driver implementing the stepper interface is loaded, if available.
- *  - realloc memory space for function pointers to interrupt handlers
- * interrupt for pin change watching (solenoid, endstop, feedback encoder) - when a driver implementing the servo interface is loaded, if available.
- *  - read AVR datasheet for how to set up pin change events
- * software interrupt to be polled in the idle loop - always available and running.
+/* The regular interrupt handler makes use of a timer and comparator to execute
+ * a list of functions at regular intervals.  The regular interrupt handler provides
+ * the heartbeat of the firmware.  It's enabled dynamically, when devices which
+ * require regular servicing are loaded.
+ * 
+ * The regular interrupt handler is responsible for stepper motors, temperature
+ * sensors, luminance sensors, etc.
  */
-
 extern int regular_interrupt_count;
 extern int *regular_interrupt_list;
+
+/* The pin change interrupt handler configures the interrupt hardware to monitor
+ * the state of a pin, or group of pins, and runs only when the state of those pins
+ * changes in a pre-defined way.  When it's run, the pin change interrupt handler
+ * attempts to determine which pin caused the interrupt, and then runs only the
+ * interrupt handling function associated with that pin.
+ * 
+ * The pin change interrupt handler is responsible for endstops, feedback
+ * hardware like quadrature encoders and flow sensors, buttons, etc.
+ */
+extern int pin_interrupt_count;
+extern int *pin_interrupt_list;
 
 function init_regular_interrupt_list()
 {
