@@ -40,43 +40,84 @@ extern int *regular_interrupt_list;
 extern int pin_interrupt_count;
 extern int *pin_interrupt_list;
 
-function init_regular_interrupt_list()
+function init_regular_interrupt_list(int interrupt_handler)
 {
-    device_list = calloc( sizeof(int) );
-    *device_list = &root_device;
+    regular_interrupt_list = calloc( sizeof(int) );
+    *regular_interrupt_list = &interrupt_handler;
 }
 
-/* realloc's *device_list to (devices * 1 byte), updating device_list,
- * and stores the new device's data in the last position.
- */
-function add_device( int driver )
+function init_pin_interrupt_list(int interrupt_handler)
 {
-	int *temp_device_list;
-	if ((temp_device_list = realloc(device_list, sizeof(int) * (device_count + 1))) == NULL)
+    pin_interrupt_list = calloc( sizeof(int) );
+    *pin_interrupt_list = &interrupt_handler;
+}
+
+/* realloc's *regular_interrupt_list to (regular_interrupt_count * 1 byte), updating regular_interrupt_list,
+ * and stores the new interrupt handler's pointer in the last position.
+ */
+function add_regular_interrupt( int interrupt_handler )
+{
+	int *temp_list;
+	if ((temp_list = realloc(regular_interrupt_list, sizeof(int) * (regular_interrupt_count + 1))) == NULL)
 	{
 		error( 1 ); // Device list reallocation failed: out of memory
 	}
-	device_list = temp_device_list;
-	device_list[device_count] = drivers[driver];
-	device_count++;
+	regular_interrupt_list = temp_list;
+	regular_interrupt_list[regular_interrupt_count] = interrupt_handler;
+	regular_interrupt_count++;
 }
 
-/* Moves the last device into the position of the device being removed,
- * realloc's *device_list to be one device shorter.
- * Shrinking an allocation with realloc should always succeed.
+/* Moves the last interrupt handler into the position of the 
+ * interrupt handler being removed, realloc's *regular_interrupt_list
+ * to be one interrupt handler shorter.  Shrinking an allocation with
+ * realloc should always succeed.
  */
-function remove_device( int device )
+function remove_regular_interrupt( int interrupt_handler )
 {
 	int i;	
-	for (i = 0; i < device_count; i++) // this will skip the root device, at device_list[0]
+	for (i = 0; i < regular_interrupt_count; i++) // this will skip the root device, at device_list[0]
 	{
-		if (device_list[i] == device)
+		if (regular_interrupt_list[i] == interrupt_handler)
 		{
-			device_list[i] = device_list[device_count];
+			regular_interrupt_list[i] = regular_interrupt_list[regular_interrupt_count];
 			break;
 		}
 	}
-	realloc(device_list, sizeof(int) * (device_count - 1));
+	realloc(regular_interrupt_list, sizeof(int) * (regular_interrupt_count - 1));
+}
+
+/* realloc's *pin_interrupt_list to (pin_interrupt_count * 1 byte), updating pin_interrupt_list,
+ * and stores the new interrupt handler's pointer in the last position.
+ */
+function add_pin_interrupt( int interrupt_handler )
+{
+	int *temp_list;
+	if ((temp_list = realloc(pin_interrupt_list, sizeof(int) * (pin_interrupt_count + 1))) == NULL)
+	{
+		error( 1 ); // Device list reallocation failed: out of memory
+	}
+	pin_interrupt_list = temp_list;
+	pin_interrupt_list[pin_interrupt_count] = interrupt_handler;
+	pin_interrupt_count++;
+}
+
+/* Moves the last interrupt handler into the position of the 
+ * interrupt handler being removed, realloc's *pin_interrupt_list
+ * to be one interrupt handler shorter.  Shrinking an allocation with
+ * realloc should always succeed.
+ */
+function remove_pin_interrupt( int interrupt_handler )
+{
+	int i;	
+	for (i = 0; i < pin_interrupt_count; i++) // this will skip the root device, at device_list[0]
+	{
+		if (pin_interrupt_list[i] == interrupt_handler)
+		{
+			pin_interrupt_list[i] = pin_interrupt_list[pin_interrupt_count];
+			break;
+		}
+	}
+	realloc(pin_interrupt_list, sizeof(int) * (pin_interrupt_count - 1));
 }
 
 // describe timer interrupts or i/o interrupts in the same data structure
@@ -92,44 +133,28 @@ struct interrupt_handler
 	
 }
 
-// 8 / 16bit versions?
-timed_interrupt()
-{
-	
-}
-
-input_interrupt()
-{
-	
-}
-
-init_timed_interrupt()
-{
-	// shift function pointer to timed_interrupt() into interrupt vector table for ISR1
-}
-
-init_input_interrupt()
-{
-	// shift function pointer to input_interrupt() into interrupt vector table for ISR1
-}
-
 #ifdef AVR328
 	// 16bit counter 
 	ISR(TIMER1_COMPA_vect)
 	{
-		(*interrupt_handler_1)();
+		int i;
+		
+		for (i = -1; i < regular_interrupt_count; i++)
+		{
+			(*regular_interrupt_list[i])();
+		}
 	}
 	
 	// 8bit counter
 	ISR(TIMER2_COMPA_vect)
 	{
-		(*interrupt_handler_2)();
+
 	}
 	
 	// 8bit counter
 	ISR(TIMER3_COMPA_vect)
 	{
-		(*interrupt_handler_3)();		
+
 	}
 #endif // AVR328
 	
