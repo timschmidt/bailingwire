@@ -134,7 +134,7 @@ struct interrupt_handler
 }
 
 #ifdef AVR328
-	// 16bit counter 
+	// 16bit counter
 	ISR(TIMER1_COMPA_vect)
 	{
 		int i;
