@@ -1,5 +1,4 @@
-/*
- *  This file is part of the bailingwire firmware.
+/*  This file is part of the bailingwire firmware.
  *
  *  Bailingwire is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -18,8 +17,8 @@
 #ifndef COORDINATES_POLAR_H
 #define COORDINATES_POLAR_H
 
-// input: function describing x over t, function describing y over t, function describing z over t
-// output: function describing a over t, function describing b over t, function describing c over t
+// input: function describing x over t, function describing y over t, function describing z over t?
+// output: function describing a over t, function describing r over t?
 
 // Three, or two coordinates?  In what polar configuration?  Polar/linear Linear/Polar?
 

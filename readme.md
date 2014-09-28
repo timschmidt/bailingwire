@@ -56,6 +56,7 @@ Bailingwire uses a powerful hardware abstraction model to provide per-axis runti
  - build propeller cog -> interrupt handler interface in core-interrupt.h
  - write constant storage / retrieval functions
  - pull in code for all GROVE hardware - audit licenses
+ - implement fast sqrt approximation from teacup firmware
 
 
 Serial Communications Protocol Notes:
