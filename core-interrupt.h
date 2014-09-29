@@ -40,13 +40,13 @@ extern int *regular_interrupt_list;
 extern int pin_interrupt_count;
 extern int *pin_interrupt_list;
 
-function init_regular_interrupt_list(int interrupt_handler)
+void init_regular_interrupt_list(int interrupt_handler)
 {
     regular_interrupt_list = calloc( sizeof(int) );
     *regular_interrupt_list = &interrupt_handler;
 }
 
-function init_pin_interrupt_list(int interrupt_handler)
+void init_pin_interrupt_list(int interrupt_handler)
 {
     pin_interrupt_list = calloc( sizeof(int) );
     *pin_interrupt_list = &interrupt_handler;
@@ -55,7 +55,7 @@ function init_pin_interrupt_list(int interrupt_handler)
 /* realloc's *regular_interrupt_list to (regular_interrupt_count * 1 byte), updating regular_interrupt_list,
  * and stores the new interrupt handler's pointer in the last position.
  */
-function add_regular_interrupt( int interrupt_handler )
+void add_regular_interrupt( int interrupt_handler )
 {
 	int *temp_list;
 	if ((temp_list = realloc(regular_interrupt_list, sizeof(int) * (regular_interrupt_count + 1))) == NULL)
@@ -72,7 +72,7 @@ function add_regular_interrupt( int interrupt_handler )
  * to be one interrupt handler shorter.  Shrinking an allocation with
  * realloc should always succeed.
  */
-function remove_regular_interrupt( int interrupt_handler )
+void remove_regular_interrupt( int interrupt_handler )
 {
 	int i;	
 	for (i = 0; i < regular_interrupt_count; i++) // this will skip the root device, at device_list[0]
@@ -89,7 +89,7 @@ function remove_regular_interrupt( int interrupt_handler )
 /* realloc's *pin_interrupt_list to (pin_interrupt_count * 1 byte), updating pin_interrupt_list,
  * and stores the new interrupt handler's pointer in the last position.
  */
-function add_pin_interrupt( int interrupt_handler )
+void add_pin_interrupt( int interrupt_handler )
 {
 	int *temp_list;
 	if ((temp_list = realloc(pin_interrupt_list, sizeof(int) * (pin_interrupt_count + 1))) == NULL)
@@ -106,7 +106,7 @@ function add_pin_interrupt( int interrupt_handler )
  * to be one interrupt handler shorter.  Shrinking an allocation with
  * realloc should always succeed.
  */
-function remove_pin_interrupt( int interrupt_handler )
+void remove_pin_interrupt( int interrupt_handler )
 {
 	int i;	
 	for (i = 0; i < pin_interrupt_count; i++) // this will skip the root device, at device_list[0]
@@ -133,16 +133,26 @@ struct interrupt_handler
 	
 }
 
+void regular_interrupts()
+{
+	int i;
+		
+	for (i = -1; i < regular_interrupt_count; i++)
+	{
+		(*regular_interrupt_list[i])();
+	}
+}
+
+void pin_interrupts()
+{
+	// reference datasheet for pin interrupt registers
+}
+
 #ifdef AVR328
 	// 16bit counter
 	ISR(TIMER1_COMPA_vect)
 	{
-		int i;
-		
-		for (i = -1; i < regular_interrupt_count; i++)
-		{
-			(*regular_interrupt_list[i])();
-		}
+		regular_interrupts();
 	}
 	
 	// 8bit counter
