@@ -18,6 +18,8 @@
 #ifndef CORE_MODEL_PAST_H
 #define CORE_MODEL_PAST_H
 
+// Replace with per-axis position tracking + mapping from per-axis positions to cartesian coordinates - how?
+
 // log of changes in machine state - all per-axis state values throughout the firmware are derived from these numbers
 // timestamped snapshots of machine status starting now, and older.  entries only made on state change
 // calculate length of buffer based on struct size, available ram at compile time 
