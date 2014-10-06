@@ -40,6 +40,18 @@ extern int *regular_interrupt_list;
 extern int pin_interrupt_count;
 extern int *pin_interrupt_list;
 
+// describe regular interrupts or pin interrupts in the same data structure?
+struct interrupt_handler
+{
+	// Public API
+	void *handler;
+	int low_threshold;
+	int high_threshold;
+	
+	//Private API
+	
+}
+
 void init_regular_interrupt_list(int interrupt_handler)
 {
     regular_interrupt_list = calloc( sizeof(int) );
@@ -118,19 +130,6 @@ void remove_pin_interrupt( int interrupt_handler )
 		}
 	}
 	realloc(pin_interrupt_list, sizeof(int) * (pin_interrupt_count - 1));
-}
-
-// describe timer interrupts or i/o interrupts in the same data structure
-struct interrupt_handler
-{
-	// Public API
-	
-	int &interrupt_handler(int *timer_interrupt, float input);
-	int low_threshold;
-	int high_threshold;
-	
-	//Private API
-	
 }
 
 void regular_interrupts()
