@@ -41,6 +41,8 @@
  */
  
 #ifdef DEVDUINO_SENSORNODE_2
+  #define F_CPU 16000000UL
+
   struct root_device
   {
 	  // Public API

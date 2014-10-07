@@ -31,13 +31,21 @@ void setup() {
 	int *current_command = &buffer;
 	
 	init_device_list();
+	
+	uart_init();  // from driver-avrserial.h
+	stdout = &uart_output;
+    stdin  = &uart_input;
+    char input;
 }
 
 void loop() {
 	while (nothing bad happens)
 	{
 	
-	iterate through an array of function pointers to services, which have been pushed onto the linked list by a serial command
+	//iterate through an array of function pointers to services, which have been pushed onto the linked list by a serial command
 	
+		puts("Hello world!");
+        input = getchar();
+        printf("You wrote %c\n", input);
 	}
 }

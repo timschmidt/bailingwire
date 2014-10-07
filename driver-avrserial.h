@@ -1,5 +1,4 @@
-/*
- *  This file is part of the bailingwire firmware.
+/*  This file is part of the bailingwire firmware.
  *
  *  Bailingwire is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -14,17 +13,102 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
  * 
- *  Based on LGPLv2.1+ MarlinSerial.h/cpp Copyright 2006 Nicholas Zambetti
- *  Modified 20 September 2010 by Mark Sproul
- *  Modified 6 October 2014 by Timothy Schmidt
+ *  Based on LGPLv2.1+ MarlinSerial.h/cpp
+ *  Copyright 2006 Nicholas Zambetti
+ *  Modified 2010 by Mark Sproul
+ *  Modified 2014 by Timothy Schmidt
+ * 
+ *  Also based on code from http://appelsiini.net/2011/simple-usart-with-avr-libc
+ *  MIT License: http://www.opensource.org/licenses/mit-license.php
+ *  Copyright 2011 Mika Tuupola
+ * 
+ * Todo:
+ *  - un-c++ify
+ *  - reduce buffer size to 32ish bytes
  */
  
 #ifndef DRIVER_AVRSERIAL_H
 #define DRIVER_AVRSERIAL_H
 
+#include <stdio.h>
+#include <avr/io.h>
+
+// must be defined (along with F_CPU in core-boards.h) before including setbaud.h 
+#define BAUD 9600
+
+#include <util/setbaud.h>
+
 // only support hardware serial ports
 // input: AVR serial port parameters
 // output: function pointer(s) to serial interface
+
+void uart_init(void) {
+    UBRR0H = UBRRH_VALUE;
+    UBRR0L = UBRRL_VALUE;
+
+#if USE_2X
+    UCSR0A |= _BV(U2X0);
+#else
+    UCSR0A &= ~(_BV(U2X0));
+#endif
+
+    UCSR0C = _BV(UCSZ01) | _BV(UCSZ00); /* 8-bit data */
+    UCSR0B = _BV(RXEN0) | _BV(TXEN0);   /* Enable RX and TX */
+}
+
+void uart_putchar(char c, FILE *stream) {
+    if (c == '\n') {
+        uart_putchar('\r', stream);
+    }
+    loop_until_bit_is_set(UCSR0A, UDRE0);
+    UDR0 = c;
+}
+
+char uart_getchar(FILE *stream) {
+    loop_until_bit_is_set(UCSR0A, RXC0); /* Wait until data exists. */
+    return UDR0;
+}
+
+/*
+ * FDEV_SETUP_STREAM macro can be used to setup a buffer which is valid for stdio operations. Initialized buffer will be of type FILE. You can define separate buffers for input and output. Alternatively you can define only one buffer which works for both input and output. First and second parameters are names of the functions which will be called when data is either read from or written to the buffer.
+ */
+//FILE uart_output = FDEV_SETUP_STREAM(uart_putchar, NULL, _FDEV_SETUP_WRITE);
+//FILE uart_input = FDEV_SETUP_STREAM(NULL, uart_getchar, _FDEV_SETUP_READ);
+
+FILE uart_io FDEV_SETUP_STREAM(uart_putchar, uart_getchar, _FDEV_SETUP_RW);
+
+int main(void) {
+
+    
+    
+
+    char input;
+
+    while(1) {
+        puts("Hello world!");
+        input = getchar();
+        printf("You wrote %c\n", input);
+    }
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Marlin Serial code
+
 
 #if !defined(SERIAL_PORT) 
 #define SERIAL_PORT 0
@@ -32,8 +116,8 @@
 
 // The presence of the UBRRH register is used to detect a UART.
 #define UART_PRESENT(port) ((port == 0 && (defined(UBRRH) || defined(UBRR0H))) || \
-						(port == 1 && defined(UBRR1H)) || (port == 2 && defined(UBRR2H)) || \
-						(port == 3 && defined(UBRR3H)))				
+                            (port == 1 && defined(UBRR1H)) || (port == 2 && defined(UBRR2H)) || \
+                            (port == 3 && defined(UBRR3H)))
 						
 // These are macros to build serial port register names for the selected SERIAL_PORT (C preprocessor
 // requires two levels of indirection to expand macro values properly)
@@ -59,14 +143,11 @@
 #define M_USARTx_RX_vect SERIAL_REGNAME(USART,SERIAL_PORT,_RX_vect)
 #define M_U2Xx SERIAL_REGNAME(U2X,SERIAL_PORT,)
 
-
-
 #define DEC 10
 #define HEX 16
 #define OCT 8
 #define BIN 2
 #define BYTE 0
-
 
 #ifndef AT90USB
 // Define constants and variables for buffering incoming serial data.  We're
@@ -74,7 +155,6 @@
 // location to which to write the next incoming character and rx_buffer_tail
 // is the index of the location from which to read.
 #define RX_BUFFER_SIZE 128
-
 
 struct ring_buffer
 {
@@ -180,6 +260,8 @@ class AVRSerial //: public Stream
     void println(double, int = 2);
     void println(void);
 };
+
+extern AVRSerial ASerial;
 
 #endif // !AT90USB
 
@@ -475,4 +557,6 @@ AVRSerial ASerial;
 #endif // whole file
 #endif // !AT90USB
 
+
+*/
 #endif // DRIVER_AVRSERIAL_H
