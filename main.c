@@ -23,6 +23,7 @@
 void error( int error_number )
 {
 	// look up error text in core-constants, and output to serial, LCD
+	// per-device error handling? - not initially
 }
 
 void setup() {
