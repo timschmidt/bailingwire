@@ -17,28 +17,33 @@
 #ifndef CORE_INTERRUPT_H
 #define CORE_INTERRUPT_H
 
-/* The regular interrupt handler makes use of a timer and comparator to execute
- * a list of functions at regular intervals.  The regular interrupt handler provides
- * the heartbeat of the firmware.  It's enabled dynamically, when devices which
- * require regular servicing are loaded.
- * 
- * The regular interrupt handler is responsible for stepper motors, temperature
- * sensors, luminance sensors, etc.
- */
-extern int regular_interrupt_count;
-extern int *regular_interrupt_list;
+#include <avr/interrupt.h>
 
-/* The pin change interrupt handler configures the interrupt hardware to monitor
- * the state of a pin, or group of pins, and runs only when the state of those pins
- * changes in a pre-defined way.  When it's run, the pin change interrupt handler
- * attempts to determine which pin caused the interrupt, and then runs only the
- * interrupt handling function associated with that pin.
+/* The recurring interrupt handler makes use of a timer and comparator
+ * to execute a list of functions at regular intervals.  The recurring
+ * interrupt handler provides the heartbeat of the firmware.
  * 
- * The pin change interrupt handler is responsible for endstops, feedback
+ * It's enabled dynamically, when devices which require regular
+ * servicing are loaded.
+ * 
+ * The recurring interrupt handler is responsible for stepper motors,
+ * temperature sensors, luminance sensors, etc.
+ */
+extern int recurring_interrupt_count;
+extern int *recurring_interrupt_list;
+
+/* The external interrupt handler configures the interrupt hardware to
+ * monitor the state of a pin, or group of pins, and runs only when the
+ * state of those pins changes in a pre-defined way.  When it's run, the
+ * external interrupt handler attempts to determine which pin caused the
+ * interrupt, and then runs only the interrupt handling function
+ * associated with that pin.
+ * 
+ * The external interrupt handler is responsible for endstops, feedback
  * hardware like quadrature encoders and flow sensors, buttons, etc.
  */
-extern int pin_interrupt_count;
-extern int *pin_interrupt_list;
+extern int external_interrupt_count;
+extern int *external_interrupt_list;
 
 // describe regular interrupts or pin interrupts in the same data structure?
 struct interrupt_handler
@@ -52,97 +57,99 @@ struct interrupt_handler
 	
 }
 
-void init_regular_interrupt_list(int interrupt_handler)
+void init_recurring_interrupt_list(int interrupt_handler)
 {
-    regular_interrupt_list = calloc( sizeof(int) );
-    *regular_interrupt_list = &interrupt_handler;
+    recurring_interrupt_list = calloc( sizeof(int) );
+    *recurring_interrupt_list = &interrupt_handler;
 }
 
-void init_pin_interrupt_list(int interrupt_handler)
+void init_external_interrupt_list(int interrupt_handler)
 {
-    pin_interrupt_list = calloc( sizeof(int) );
-    *pin_interrupt_list = &interrupt_handler;
+    external_interrupt_list = calloc( sizeof(int) );
+    *external_interrupt_list = &interrupt_handler;
 }
 
-/* realloc's *regular_interrupt_list to (regular_interrupt_count * 1 byte), updating regular_interrupt_list,
- * and stores the new interrupt handler's pointer in the last position.
+/* realloc's *recurring_interrupt_list to (recurring_interrupt_count * 1 byte),
+ * updating recurring_interrupt_list, and stores the new interrupt
+ * handler's pointer in the last position.
  */
-void add_regular_interrupt( int interrupt_handler )
+void add_recurring_interrupt( int interrupt_handler )
 {
 	int *temp_list;
-	if ((temp_list = realloc(regular_interrupt_list, sizeof(int) * (regular_interrupt_count + 1))) == NULL)
+	if ((temp_list = realloc(recurring_interrupt_list, sizeof(int) * (recurring_interrupt_count + 1))) == NULL)
 	{
 		error( 1 ); // Device list reallocation failed: out of memory
 	}
-	regular_interrupt_list = temp_list;
-	regular_interrupt_list[regular_interrupt_count] = interrupt_handler;
-	regular_interrupt_count++;
+	recurring_interrupt_list = temp_list;
+	recurring_interrupt_list[recuring_interrupt_count] = interrupt_handler;
+	recurring_interrupt_count++;
 }
 
 /* Moves the last interrupt handler into the position of the 
- * interrupt handler being removed, realloc's *regular_interrupt_list
+ * interrupt handler being removed, realloc's *recurring_interrupt_list
  * to be one interrupt handler shorter.  Shrinking an allocation with
  * realloc should always succeed.
  */
-void remove_regular_interrupt( int interrupt_handler )
+void remove_recurring_interrupt( int interrupt_handler )
 {
 	int i;	
-	for (i = 0; i < regular_interrupt_count; i++) // this will skip the root device, at device_list[0]
+	for (i = 0; i < recuring_interrupt_count; i++) // this will skip the root device, at device_list[0]
 	{
-		if (regular_interrupt_list[i] == interrupt_handler)
+		if (recurring_interrupt_list[i] == interrupt_handler)
 		{
-			regular_interrupt_list[i] = regular_interrupt_list[regular_interrupt_count];
+			recuring_interrupt_list[i] = recurring_interrupt_list[recurring_interrupt_count];
 			break;
 		}
 	}
-	realloc(regular_interrupt_list, sizeof(int) * (regular_interrupt_count - 1));
+	realloc(recurring_interrupt_list, sizeof(int) * (recurring_interrupt_count - 1));
 }
 
-/* realloc's *pin_interrupt_list to (pin_interrupt_count * 1 byte), updating pin_interrupt_list,
- * and stores the new interrupt handler's pointer in the last position.
+/* realloc's *external_interrupt_list to (external_interrupt_count * 1 byte),
+ * updating external_interrupt_list, and stores the new interrupt
+ * handler's pointer in the last position.
  */
-void add_pin_interrupt( int interrupt_handler )
+void add_external_interrupt( int interrupt_handler )
 {
 	int *temp_list;
-	if ((temp_list = realloc(pin_interrupt_list, sizeof(int) * (pin_interrupt_count + 1))) == NULL)
+	if ((temp_list = realloc(external_interrupt_list, sizeof(int) * (external_interrupt_count + 1))) == NULL)
 	{
 		error( 1 ); // Device list reallocation failed: out of memory
 	}
-	pin_interrupt_list = temp_list;
-	pin_interrupt_list[pin_interrupt_count] = interrupt_handler;
-	pin_interrupt_count++;
+	external_interrupt_list = temp_list;
+	external_interrupt_list[external_interrupt_count] = interrupt_handler;
+	external_interrupt_count++;
 }
 
 /* Moves the last interrupt handler into the position of the 
- * interrupt handler being removed, realloc's *pin_interrupt_list
+ * interrupt handler being removed, realloc's *external_interrupt_list
  * to be one interrupt handler shorter.  Shrinking an allocation with
  * realloc should always succeed.
  */
-void remove_pin_interrupt( int interrupt_handler )
+void remove_external_interrupt( int interrupt_handler )
 {
 	int i;	
-	for (i = 0; i < pin_interrupt_count; i++) // this will skip the root device, at device_list[0]
+	for (i = 0; i < external_interrupt_count; i++) // this will skip the root device, at device_list[0]
 	{
-		if (pin_interrupt_list[i] == interrupt_handler)
+		if (external_interrupt_list[i] == interrupt_handler)
 		{
-			pin_interrupt_list[i] = pin_interrupt_list[pin_interrupt_count];
+			external_interrupt_list[i] = external_interrupt_list[external_interrupt_count];
 			break;
 		}
 	}
-	realloc(pin_interrupt_list, sizeof(int) * (pin_interrupt_count - 1));
+	realloc(external_interrupt_list, sizeof(int) * (external_interrupt_count - 1));
 }
 
-void regular_interrupts()
+void recurring_interrupts()
 {
 	int i;
 		
-	for (i = -1; i < regular_interrupt_count; i++)
+	for (i = -1; i < recurring_interrupt_count; i++)
 	{
-		(*regular_interrupt_list[i])();
+		(*recurring_interrupt_list[i])();
 	}
 }
 
-void pin_interrupts()
+void external_interrupts()
 {
 	// reference datasheet for pin interrupt registers
 }
@@ -151,7 +158,7 @@ void pin_interrupts()
 	// 16bit counter
 	ISR(TIMER1_COMPA_vect)
 	{
-		regular_interrupts();
+		recurring_interrupts();
 	}
 	
 	// 8bit counter
