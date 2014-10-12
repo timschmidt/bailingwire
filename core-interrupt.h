@@ -20,8 +20,9 @@
 #include <avr/interrupt.h>
 
 /* The recurring interrupt handler makes use of a timer and comparator
- * to execute a list of functions at regular intervals.  The recurring
- * interrupt handler provides the heartbeat of the firmware.
+ * (on AVR / ARM, or a cog on Propeller) to execute a list of functions
+ * at regular intervals.  The recurring interrupt handler provides the
+ * heartbeat of the firmware.
  * 
  * It's enabled dynamically, when devices which require regular
  * servicing are loaded.
@@ -50,8 +51,8 @@ struct interrupt_handler
 {
 	// Public API
 	void *handler;
-	int low_threshold;
-	int high_threshold;
+	int interrupt_type;
+	int identifier;
 	
 	//Private API
 	
