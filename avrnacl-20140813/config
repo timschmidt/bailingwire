@@ -1,0 +1,14 @@
+# Edit this file to configure the AVRNaCl build system
+# Do not put spaces before or after the '=' character.
+
+TARGET_DEVICE=atmega2560
+CPUFREQ=16000000 
+CC=/usr/bin/avr-gcc
+OBJCOPY=/usr/bin/avr-objcopy
+AR=/usr/bin/avr-ar
+STRIP=/usr/bin/avr-strip
+
+DEVICE_FILE=/dev/ttyACM0
+TESTLOGFILE=test.log
+SPEEDLOGFILE=speed.log
+STACKLOGFILE=stack.log
