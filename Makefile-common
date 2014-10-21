@@ -1,0 +1,96 @@
+/*  This file is part of the bailingwire firmware.
+ *
+ *  Bailingwire is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Bailingwire is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
+ */
+ 
+/* This file isn't sufficient on its own. Use the target-specific Makefile
+ * instead, which -includes this file.
+ */
+
+BUILDDIR = build
+USER_CONFIG ?= core-config.h
+
+ifdef BUILD_FLAVOR
+BUILDDIR := $(BUILDDIR)/$(BUILD_FLAVOR)
+endif
+
+ifneq ($(USER_CONFIG),core-config.h)
+BUILDDIR := $(BUILDDIR)/$(USER_CONFIG:.h=)
+endif
+
+CFLAGS += -save-temps=obj -DUSER_CONFIG='"$(USER_CONFIG)"'
+
+CC = $(TOOLCHAIN)gcc
+OBJDUMP = $(TOOLCHAIN)objdump
+OBJCOPY = $(TOOLCHAIN)objcopy
+
+
+OBJ = $(patsubst %.c,$(BUILDDIR)/%.o,$(SOURCES))
+
+.PHONY: all clean doc functionsbysize
+.PRECIOUS: %.o %.elf
+
+all: $(BUILDDIR) $(TARGET)
+
+clean:
+	rm -rf $(BUILDDIR) $(TARGET) *~
+
+doc: Doxyfile *.c *.h
+	doxygen $<
+
+functionsbysize: $(OBJ)
+	@$(OBJDUMP) -h $^ | grep '\.text\.' | perl -ne '/\.text\.(\S+)\s+([0-9a-f]+)/ && printf "%u\t%s\n", eval("0x$$2"), $$1;' | sort -n
+
+$(BUILDDIR):
+	mkdir -p $(BUILDDIR)
+
+# pull in dependency info
+-include $(OBJ:%.o=%.P)
+
+# Everything depends on makefiles, excluding auto-built makefiles
+$(OBJ): $(filter-out %.P,$(MAKEFILE_LIST))
+
+# Auto-depends extension
+df = $(@:.o=)
+define CCPOST
+	cp $(df).d $(df).P; \
+	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
+	  -e '/^$$/ d' -e 's/$$/ :/' < $(df).d >> $(df).P; \
+	rm -f $(df).d
+endef
+
+$(BUILDDIR)/%.o: %.c | $(BUILDDIR)
+	@echo "  CC        $@"
+	@$(CC) -c $(CFLAGS) -MMD -o $@ $<
+	@$(call CCPOST)
+
+$(BUILDDIR)/%.elf: $(OBJ)
+	@echo "  LINK      $@"
+	@$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+$(BUILDDIR)/%.lst: $(BUILDDIR)/%.elf
+	@echo "  OBJDUMP   $@"
+	@$(OBJDUMP) -h -S $< > $@
+
+%.hex: $(BUILDDIR)/%.elf
+	@echo "  OBJCOPY   $@"
+	@$(OBJCOPY) -j .text -j .data -O ihex -R .eeprom -R .fuse -R .lock $< $@
+
+$(BUILDDIR)/%.bin: $(BUILDDIR)/%.elf
+	@echo "  OBJCOPY   $@"
+	@$(OBJCOPY) -j .text -j .data -O binary $< $@
+
+$(BUILDDIR)/%.sym: $(BUILDDIR)/%.elf
+	@echo "  SYM       $@"
+	@$(OBJDUMP) -t $< | perl -ne 'BEGIN { printf "  ADDR  NAME                  SIZE\n"; } /([0-9a-f]+)\s+(\w+)\s+O\s+\.(bss|data)\s+([0-9a-f]+)\s+(\w+)/ && printf "0x%04x  %-20s +%d\n", eval("0x$$1") & 0xFFFF, $$5, eval("0x$$4")' | sort -k1 > $@
