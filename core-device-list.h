@@ -17,7 +17,7 @@
 #ifndef CORE_DEVICE_LIST_H
 #define CORE_DEVICE_LIST_H
 
-#include <avr/pgmspace.h>
+#include <stdlib.h>
 
 // Device types (function call interfaces)
 // Move to core-constants

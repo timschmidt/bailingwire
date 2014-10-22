@@ -20,6 +20,8 @@
 // command / function list:
 //  - call a per-coordinate system auto probing for axis _
 
+#include <stdlib.h>
+
 void error( int error_number )
 {
 	// look up error text in core-constants, and output to serial, LCD
@@ -28,7 +30,7 @@ void error( int error_number )
 
 void setup() {
 	int *buffer;
-	buffer = calloc(6 * 32); // buffer 6x 32byte commands
+	buffer = calloc(6, 32); // buffer 6x 32byte commands
 	int *current_command = &buffer;
 	
 	init_device_list();
@@ -39,7 +41,7 @@ void setup() {
     char input;
 }
 
-void loop() {
+void main() {
 	while (nothing bad happens)
 	{
 	
