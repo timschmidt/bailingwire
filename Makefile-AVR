@@ -1,29 +1,28 @@
-/*  This file is part of the bailingwire firmware.
- *
- *  Bailingwire is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  Bailingwire is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
- */
+#  This file is part of the bailingwire firmware.
+#
+#  Bailingwire is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  Bailingwire is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
 
-/* Makefile for AVR (ATmega-based) targets. Use it with
- * 
- * make -f Makefile-AVR
- *
- * or copy/link it to Makefile for convenience.
- */
-
-
-/* Change these to suit your hardware
- */
+# Makefile for AVR (ATmega-based) targets. Use it with
+# 
+# make -f Makefile-AVR
+#
+# or copy/link it to Makefile for convenience.
+#
+# Change these to suit your hardware
+#
+# Todo:
+#  - automatically define MCU_TARGET based on core-boards.h
 
 # MCU_TARGET ?= atmega168
 # MCU_TARGET ?= atmega328p
@@ -37,16 +36,14 @@ MCU_TARGET ?= atmega2560
 F_CPU ?= 16000000L
 # F_CPU ?= 8000000L
 
-/* Where to find your compiler and linker. Later, this is completed like
- * CC = $(TOOLCHAIN)gcc
- */
+# Where to find your compiler and linker. Later, this is completed like
+# CC = $(TOOLCHAIN)gcc
 
 TOOLCHAIN = avr-
 # TOOLCHAIN = /usr/bin/avr-
 # TOOLCHAIN = <path-to-arduino-folder>/hardware/tools/avr/bin/avr-
 
-/* Programmer settings for "make program"
- */
+# Programmer settings for "make program"
 
 # avrdude, typical for AVR-based architectures.
 #
@@ -74,8 +71,7 @@ UPLOADER_FLAGS += -P /dev/ttyUSB0
 endif
 
 
-/* Below here, defaults should be ok.
- */
+# Below here, defaults should be ok.
 
 PROGRAM = bailingwire
 
@@ -100,6 +96,9 @@ CFLAGS += -Winline
 CFLAGS += -fno-move-loop-invariants
 CFLAGS += -fno-tree-scev-cprop
 CFLAGS += -Os
+# CFLAGS += -assembler-with-cpp
+# avr-gcc: error: unrecognized command line option '-assembler-with-cpp'
+# but sublime text w/ it's arduino plugin compiles with this option, and it's really useful.
 CFLAGS += -ffunction-sections
 CFLAGS += -finline-functions-called-once
 CFLAGS += -mcall-prologues
@@ -126,7 +125,7 @@ LIBS  = -lm
 
 all: $(PROGRAM).hex $(BUILDDIR)/$(PROGRAM).lst $(BUILDDIR)/$(PROGRAM).sym size
 
-program: $(PROGRAM).hex config.h
+program: $(PROGRAM).hex core-config.h
 	$(UPLOADER) $(UPLOADER_FLAGS) -U flash:w:$(PROGRAM).hex
 
 ## Interpret TARGET section sizes wrt different AVR chips
