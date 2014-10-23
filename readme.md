@@ -14,10 +14,7 @@ Bailingwire uses a powerful hardware abstraction model to provide per-axis runti
 
 ## Sponsors
  - device model: mUVe3D ( https://www.muve3d.net )
- - dynamic interrupt model: ?
  - parallax propeller support: ?
- - port to new electronics: ?
- - driver for new peripheral: ?
 
 ## Structure
 ### Core
