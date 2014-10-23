@@ -15,9 +15,9 @@
  *  along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#ifndef CORE_WATCHDOG_H
-#define CORE_WATCHDOG_H
+#ifndef WATCHDOG_H
+#define WATCHDOG_H
 
 
 
-#endif // CORE_WATCHDOG_H
+#endif // WATCHDOG_H

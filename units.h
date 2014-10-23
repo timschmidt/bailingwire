@@ -15,8 +15,8 @@
  *  along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#ifndef CORE_UNITS_H
-#define CORE_UNITS_H
+#ifndef UNITS_H
+#define UNITS_H
 
 /* Use multiplication to convert units for speed
  * float * float = 2 cycles
@@ -47,4 +47,4 @@ void convert_angle(float angle, int units)
 	return unit_conversions[units] * angle;
 }
 
-#endif // CORE_UNITS_H
+#endif // UNITS_H

@@ -14,8 +14,8 @@
  *  along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#ifndef CORE_CONSTANTS_H
-#define CORE_CONSTANTS_H
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
 
 // #ifdefs / functions for storing and retrieving constants (at compile time) in program space, EEPROM, or SRAM
 
@@ -52,4 +52,4 @@ extern float unit_conversions[5] = [
 	1 / 304.8	// foot
 ]
   
-#endif // CORE_CONSTANTS_H
+#endif // CONSTANTS_H

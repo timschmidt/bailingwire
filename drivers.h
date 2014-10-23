@@ -14,8 +14,8 @@
  *  along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#ifndef CORE_DRIVER_LIST_H
-#define CORE_DRIVER_LIST_H
+#ifndef DRIVERS_H
+#define DRIVERS_H
 
 #include <avr/pgmspace.h>
 

@@ -14,8 +14,8 @@
  *  along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#ifndef CORE_DEVICE_LIST_H
-#define CORE_DEVICE_LIST_H
+#ifndef DEVICES_H
+#define DEVICES_H
 
 #include <stdlib.h>
 
@@ -98,4 +98,4 @@ function remove_device( int device )
 	realloc(device_list, sizeof(int) * (device_count - 1));
 }
 
-#endif // CORE_DEVICE_LIST_H
+#endif // DEVICES_H

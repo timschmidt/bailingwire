@@ -14,8 +14,8 @@
  *  along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#ifndef CORE_INTERRUPT_H
-#define CORE_INTERRUPT_H
+#ifndef INTERRUPTS_H
+#define INTERRUPTS_H
 
 #include <avr/interrupt.h>
 
@@ -200,4 +200,4 @@ void external_interrupts()
 
 
 
-#endif // CORE_INTERRUPT_H
+#endif // INTERRUPT_H

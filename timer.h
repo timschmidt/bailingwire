@@ -15,8 +15,8 @@
  *  along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#ifndef CORE_TIMER_H
-#define CORE_TIMER_H
+#ifndef TIMER_H
+#define TIMER_H
 
 // - stepper driver interrupt - fires at machine resolution through time
 // - servo / endstop interrupt - watches pins, and quickly evaluates when they're triggered
@@ -74,4 +74,4 @@ void laser_init()
   #endif
 }
 
-#endif // CORE_TIMER_H
+#endif // TIMER_H

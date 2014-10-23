@@ -15,10 +15,11 @@
  *  along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#ifndef CORE_PWM_H
-#define CORE_PWM_H
+#ifndef PWM_H
+#define PWM_H
 
 // where is the dividing line between pwm and timer setup?
+//  PWM provides helper functions for allocating and configuring a timer to generate a PWM signal?
 
 // convert these into a single invariant function w/ lookup table in progmem
 void timer3_init(int pin) {
@@ -71,4 +72,4 @@ void laser_init()
 }
 
 
-#endif // CORE_PWM_H
+#endif // PWM_H
