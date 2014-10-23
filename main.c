@@ -28,7 +28,7 @@ void error( int error_number )
 	// per-device error handling? - not initially
 }
 
-void setup() {
+int setup(void) {
 	int *buffer;
 	buffer = calloc(6, 32); // buffer 6x 32byte commands
 	int *current_command = &buffer;
@@ -39,9 +39,11 @@ void setup() {
 	stdout = &uart_output;
     stdin  = &uart_input;
     char input;
+    
+    // todo: board initialization
 }
 
-void main() {
+int main(void) {
 	while (nothing bad happens)
 	{
 	

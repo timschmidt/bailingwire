@@ -64,13 +64,16 @@ Bailingwire uses a powerful hardware abstraction model to provide per-axis runti
  - write constant storage / retrieval functions
  - pull in code for all GROVE hardware - audit licenses
  - implement fast sqrt approximation from teacup firmware
-
+ - connect setup() to board initialization function, do serial port setup at board initialization
+ - poll serial port for commands to buffer from recurring interrupt
+ - check for full buffer, call protocol handler from main() idle loop
+ 
 
 Serial Communications Protocol Notes:
  
 Packet-based, binary, one device 'command' per packet.  Each packet is prefixed by a XX byte device ID, and each packet's payload is 0 to 32 bytes long.  All packets, reguardless of address prefix, are sent to the same serial connection from the HOST.  The DEVICE on the recieving side of that serial connection will route the packets apropriately.
 
-Packet / Command IDs for serial-retry - incremental, random, length, location?
+Need packet / line numbers for re-send requests
   
 Checksums - see nRF datasheet
 

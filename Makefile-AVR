@@ -98,7 +98,7 @@ CFLAGS += -fno-tree-scev-cprop
 CFLAGS += -Os
 # CFLAGS += -assembler-with-cpp
 # avr-gcc: error: unrecognized command line option '-assembler-with-cpp'
-# but sublime text w/ it's arduino plugin compiles with this option, and it's really useful.
+# but sublime text w/ Stino plugin compiles with this option, and it's really useful.
 CFLAGS += -ffunction-sections
 CFLAGS += -finline-functions-called-once
 CFLAGS += -mcall-prologues
