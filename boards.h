@@ -14,8 +14,10 @@
  *  along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#ifndef CORE_BOARDS_H
-#define CORE_BOARDS_H
+#ifndef BOARDS_H
+#define BOARDS_H
+
+#include "config.h"
 
 /**
  * Atmega 328p
@@ -41,21 +43,14 @@
  */
  
 #ifdef DEVDUINO_SENSORNODE_2
-  #define F_CPU 16000000UL
+  //#define F_CPU 16000000UL
 
-  struct root_device
-  {
-	  // Public API
-	  int device_type = DEVICE_TYPE_ROOT
-	  
-	  // Private API
-  }
-  add_device(1); // AVR GPIO -- Button
-  add_device(1); // AVR GPIO -- LED
-  add_device(1); // AVR GPIO -- GROVE Digital Pin 1
-  add_device(1); // AVR GPIO -- GROVE Digital Pin 2
-  add_device(1); // AVR GPIO -- GROVE Analog Pin 1
-  add_device(1); // AVR GPIO -- GROVE Analog Pin 2
+  //add_device(1); // AVR GPIO -- Button
+  //add_device(1); // AVR GPIO -- LED
+  //add_device(1); // AVR GPIO -- GROVE Digital Pin 1
+  //add_device(1); // AVR GPIO -- GROVE Digital Pin 2
+  //add_device(1); // AVR GPIO -- GROVE Analog Pin 1
+  //add_device(1); // AVR GPIO -- GROVE Analog Pin 2
 
 #endif // DEVDUINO_SENSORNODE_2
  
@@ -125,4 +120,4 @@
  * 32 programmable i/o lines accessible to all cores
  */
   
-#endif // CORE_BOARDS_H
+#endif // BOARDS_H

@@ -21,6 +21,7 @@
 //  - call a per-coordinate system auto probing for axis _
 
 #include <stdlib.h>
+#include "devices.h"
 
 void error( int error_number )
 {
@@ -29,9 +30,9 @@ void error( int error_number )
 }
 
 int setup(void) {
-	int *buffer;
-	buffer = calloc(6, 32); // buffer 6x 32byte commands
-	int *current_command = &buffer;
+	char* buffer;
+	buffer = (char*)calloc(4, 32); // buffer 4x 32byte commands
+	char* current_command = buffer;
 	
 	init_device_list();
 	
