@@ -32,31 +32,31 @@
 // Array pointing to driver initializtion functions
 // Move to core-constants
 void (*drivers[10]) = {
-	&alloc_avr_gpio,
-	&alloc_8574_i2c_gpio,
-	&alloc_attiny,
-	&alloc_avreeprom,
-	&alloc_avrserial,
-	&alloc_axis,
-	&alloc_ftdi,
-	&alloc_nrf24l01,
-	&alloc_qtouch,
-	&alloc_uln2003
-}
+	//&alloc_avr_gpio,
+	//&alloc_8574_i2c_gpio,
+	//&alloc_attiny,
+	//&alloc_avreeprom,
+	//&alloc_avrserial,
+	//&alloc_axis,
+	//&alloc_ftdi,
+	//&alloc_nrf24l01,
+	//&alloc_qtouch,
+	//&alloc_uln2003
+};
 
-prog_char driver_0[] PROGMEM = "AVR GPIO";
-prog_char driver_1[] PROGMEM = "8574 I2C GPIO Expander";
-prog_char driver_2[] PROGMEM = "ATTiny Serial";
-prog_char driver_3[] PROGMEM = "AVR EEPROM";
-prog_char driver_4[] PROGMEM = "AVR Serial";
-prog_char driver_5[] PROGMEM = "Axis virtual driver";
-prog_char driver_6[] PROGMEM = "FTDI Serial";
-prog_char driver_7[] PROGMEM = "NRF24L01+ Networking";
-prog_char driver_8[] PROGMEM = "QTouch";
-prog_char driver_9[] PROGMEM = "ULN2003 Stepper Motor";
+const char driver_0[] PROGMEM = "AVR GPIO";
+const char driver_1[] PROGMEM = "8574 I2C GPIO Expander";
+const char driver_2[] PROGMEM = "ATTiny Serial";
+const char driver_3[] PROGMEM = "AVR EEPROM";
+const char driver_4[] PROGMEM = "AVR Serial";
+const char driver_5[] PROGMEM = "Axis virtual driver";
+const char driver_6[] PROGMEM = "FTDI Serial";
+const char driver_7[] PROGMEM = "NRF24L01+ Networking";
+const char driver_8[] PROGMEM = "QTouch";
+const char driver_9[] PROGMEM = "ULN2003 Stepper Motor";
 
 // Then set up a table to refer to our strings.
-PROGMEM const char *driver_descriptions[] =
+const char driver_descriptions[] PROGMEM =
 {   
 	driver_0,
 	driver_1,

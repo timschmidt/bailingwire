@@ -19,6 +19,7 @@
 
 #include <stdlib.h>
 #include "boards.h"
+#include "drivers.h"
 
 // Device types (function call interfaces)
 // Move to core-constants
@@ -68,7 +69,7 @@ struct
 	// Private API
 } root_device;
 
-void init_device_list()
+void init_device_list( void )
 {
     device_list = calloc( 1, sizeof(int) );
     *device_list = &root_device;
