@@ -12,6 +12,13 @@ Bailingwire uses a powerful hardware abstraction model to provide per-axis runti
  - fits in 2kb ram
  - fits in 32kb flash
 
+## Plan
+ - fix remaining compilation errors
+ - establish working serial communication
+ - using the dynamic hardware driver model, control an LED's illumination via serial commands
+ - establish working i2c <-> 8754 <-> uln2003 <-> stepper I/O cascade
+ - modify existing GROVE drivers to work within the dynamic driver model
+
 ## Sponsors
  - device model: mUVe3D ( https://www.muve3d.net )
  - parallax propeller support: ?
