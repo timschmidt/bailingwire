@@ -26,12 +26,12 @@
  * - the first 8 bits of data at the driver's memory address describe the type of interface that driver provides (motor, gpio, fan, etc)
  * - 
  * 
+ * Can we use template metaprogramming techniques to build the list of driver-related constants in program memory at compile time?
  */
 
 // Drivers:
 // Array pointing to driver initializtion functions
-// Move to core-constants
-void (*drivers[10]) = {
+int (*drivers[10])( int );
 	//&alloc_avr_gpio,
 	//&alloc_8574_i2c_gpio,
 	//&alloc_attiny,
@@ -42,7 +42,6 @@ void (*drivers[10]) = {
 	//&alloc_nrf24l01,
 	//&alloc_qtouch,
 	//&alloc_uln2003
-};
 
 const char driver_0[] PROGMEM = "AVR GPIO";
 const char driver_1[] PROGMEM = "8574 I2C GPIO Expander";
@@ -56,23 +55,23 @@ const char driver_8[] PROGMEM = "QTouch";
 const char driver_9[] PROGMEM = "ULN2003 Stepper Motor";
 
 // Then set up a table to refer to our strings.
-const char driver_descriptions[] PROGMEM =
+const char *driver_descriptions[] =
 {   
-	driver_0,
-	driver_1,
-	driver_2,
-	driver_3,
-	driver_4,
-	driver_5,
-	driver_6,
-	driver_7,
-	driver_8,
-	driver_9
+  driver_0,
+  driver_1,
+  driver_2,
+  driver_3,
+  driver_4,
+  driver_5,
+  driver_6,
+  driver_7,
+  driver_8,
+  driver_9
 };
 
 
 
-char buffer[30]; // make sure this is large enough for the largest string it must hold
-strcpy_P(buffer, (char*)pgm_read_word(&(string_table[i]))); // Copy string from program memory into buffer - casts and dereferencing are necessary
+unsigned char buffer[30]; // make sure this is large enough for the largest string it must hold
+strcpy_P(buffer, (unsigned char*)pgm_read_word(&(string_table[i]))); // Copy string from program memory into buffer - casts and dereferencing are necessary
 
 #endif // CORE_DRIVER_LIST_H

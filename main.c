@@ -30,16 +30,16 @@ void error( int error_number )
 }
 
 int setup(void) {
-	char* buffer;
-	buffer = (char*)calloc(4, 32); // buffer 4x 32byte commands
-	char* current_command = buffer;
+	unsigned char* buffer;
+	buffer = (unsigned char*)calloc(4, 32); // buffer 4x 32byte commands
+	unsigned char* current_command = buffer;
 	
 	init_device_list();
 	
 	uart_init();  // from driver-avrserial.h
 	stdout = &uart_output;
     stdin  = &uart_input;
-    char input;
+    unsigned char input;
     
     // todo: board initialization
 }
