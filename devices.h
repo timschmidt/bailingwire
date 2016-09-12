@@ -24,39 +24,39 @@
 // Device types (function call interfaces)
 // Move to core-constants
 #define DEVICE_TYPE_ROOT				1
-#define DEVICE_TYPE_ACCELLEROMETER		2
-#define DEVICE_TYPE_BAROMETER 			3
+#define DEVICE_TYPE_ACCELLEROMETER			2
+#define DEVICE_TYPE_BAROMETER 				3
 #define DEVICE_TYPE_BATTERY				4 // check status, time left
-#define DEVICE_TYPE_COLOR_SENSOR		5 // get color
-#define DEVICE_TYPE_CONDUCTIVITY_SENSOR	6 // get conductivity
-#define DEVICE_TYPE_CURRENT_SENSOR		7 // get current
-#define DEVICE_TYPE_DISTANCE_SENSOR		8 // get distance
-#define DEVICE_TYPE_EXTRUDER			9 // extrude X mm? ml?
+#define DEVICE_TYPE_COLOR_SENSOR			5 // get color
+#define DEVICE_TYPE_CONDUCTIVITY_SENSOR			6 // get conductivity
+#define DEVICE_TYPE_CURRENT_SENSOR			7 // get current
+#define DEVICE_TYPE_DISTANCE_SENSOR			8 // get distance
+#define DEVICE_TYPE_EXTRUDER				9 // extrude X mm? ml?
 #define DEVICE_TYPE_FAN					10 // set fan speed (percent)
-#define DEVICE_TYPE_FLOW_SENSOR			11 // get flow (volume / time)
+#define DEVICE_TYPE_FLOW_SENSOR				11 // get flow (volume / time)
 #define DEVICE_TYPE_GPIO				12
 #define DEVICE_TYPE_HEATER				13
-#define DEVICE_TYPE_HUMIDITY			14
+#define DEVICE_TYPE_HUMIDITY				14
 #define DEVICE_TYPE_LASER				15
 #define DEVICE_TYPE_LCD					16
 #define DEVICE_TYPE_LED					17 // set light intensity
-#define DEVICE_TYPE_LIGHT_SENSOR		18
+#define DEVICE_TYPE_LIGHT_SENSOR			18
 #define DEVICE_TYPE_MOTOR				19 // move (direction, distance, time)
-#define DEVICE_TYPE_PH_SENSOR			20
+#define DEVICE_TYPE_PH_SENSOR				20
 #define DEVICE_TYPE_PUMP				21
 #define DEVICE_TYPE_RELAY				22
 #define DEVICE_TYPE_RTC					23
 #define DEVICE_TYPE_SD					24
 #define DEVICE_TYPE_SERVO				25
-#define DEVICE_TYPE_SOIL_MOISTURE		26
-#define DEVICE_TYPE_SOLENOID			27
+#define DEVICE_TYPE_SOIL_MOISTURE			26
+#define DEVICE_TYPE_SOLENOID				27
 #define DEVICE_TYPE_STEPPER				28
 #define DEVICE_TYPE_SWITCH				29
-#define DEVICE_TYPE_TEMP_SENSOR			30
+#define DEVICE_TYPE_TEMP_SENSOR				30
 #define DEVICE_TYPE_VALVE				31
-#define DEVICE_TYPE_VOLTAGE_SENSOR		32
-#define DEVICE_TYPE_WIND_SENSOR			33
-#define DEVICE_TYPE_FEEDBACK			34 // 33: feedback - encoder wheel, quadrature, etc.
+#define DEVICE_TYPE_VOLTAGE_SENSOR			32
+#define DEVICE_TYPE_WIND_SENSOR				33
+#define DEVICE_TYPE_FEEDBACK				34 // 33: feedback - encoder wheel, quadrature, etc.
 
 extern int device_count;
 extern int *device_list;

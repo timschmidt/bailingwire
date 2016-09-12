@@ -26,7 +26,6 @@
  * - the first 8 bits of data at the driver's memory address describe the type of interface that driver provides (motor, gpio, fan, etc)
  * - 
  * 
- * Can we use template metaprogramming techniques to build the list of driver-related constants in program memory at compile time?
  */
 
 // Drivers:

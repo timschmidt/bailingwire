@@ -101,8 +101,8 @@ void timed_interrupts()
  * monitor the state of a pin, or group of pins, and runs only when the
  * state of those pins changes in a pre-defined way.  When it's run, the
  * external interrupt handler attempts to determine which pin caused the
- * interrupt, and then runs only the interrupt handling function
- * associated with that pin.
+ * interrupt, and run only the interrupt handling function associated
+ * with that pin.
  * 
  * The external interrupt handler is responsible for endstops, feedback
  * hardware like quadrature encoders and flow sensors, buttons, etc.
