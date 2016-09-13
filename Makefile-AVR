@@ -80,7 +80,8 @@ TARGET = $(PROGRAM).hex
 
 # Arduino IDE takes the "compile everything available"-approach, so we have
 # to keep this working and can take a shortcut:
-SOURCES = $(wildcard *.c)
+#SOURCES = $(wildcard *.c)
+SOURCES = main.c
 
 CFLAGS += -DF_CPU=$(F_CPU)
 CFLAGS += -mmcu=$(MCU_TARGET)
@@ -125,7 +126,7 @@ LIBS  = -lm
 
 all: $(PROGRAM).hex $(BUILDDIR)/$(PROGRAM).lst $(BUILDDIR)/$(PROGRAM).sym size
 
-program: $(PROGRAM).hex core-config.h
+program: $(PROGRAM).hex config.h
 	$(UPLOADER) $(UPLOADER_FLAGS) -U flash:w:$(PROGRAM).hex
 
 ## Interpret TARGET section sizes wrt different AVR chips

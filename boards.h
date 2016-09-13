@@ -103,6 +103,13 @@
  * Six Sleep Modes: Idle, ADC Noise Reduction, Power-save, Power-down, Standby, and Extended Standby
  * 86 programmable i/o lines
  */
+
+#ifdef ARDUINO_MEGA_2560
+  //#define F_CPU 16000000UL
+
+  //add_device(1); // AVR GPIO -- LED
+
+#endif // ARDUINO_MEGA_2560
   
 /**
  * 

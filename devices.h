@@ -22,7 +22,7 @@
 #include "drivers.h"
 
 // Device types (function call interfaces)
-// Move to core-constants
+// Move to constants.h
 #define DEVICE_TYPE_ROOT				1
 #define DEVICE_TYPE_ACCELLEROMETER			2
 #define DEVICE_TYPE_BAROMETER 				3

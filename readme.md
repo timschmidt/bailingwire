@@ -60,6 +60,32 @@ Bailingwire uses a powerful hardware abstraction model to provide per-axis runti
 ### Service
  - runs in the idle loop
 
+## Files
+boards.h - contains a list of supported microcontrollers and microcontroller boards.  loads hardware drivers for the board chosen in config.h
+config.h - contains all compile-time configuration settings
+constants.h - functions for storing constants in EEPROM, flash, and SRAM, depending on the speed and frequency of access required.
+control-bangbang.h - bangbang control algorithm
+control-pid.h - PID control algorithm
+devices.h - list of supported device types and functions for loading / unloading device drivers
+drivers.h - functions for loading drivers - combind with devices.h
+interrupts.h - interrupt handling functions
+main.c
+Makefile-AVR - build for AVR
+Makefile-common
+Makefile-example
+Makefile-SIM - build simulator
+model-ideal.h - machine state goal
+model-past.h - machine state reality
+readme.md - this file
+timer.h - hardware timer / comparater functions
+units.h - functions for fast binary unit conversion
+watchdog.h - functions for using the watchdog safety hardware
+services/gcode.h - interruptable functions for parsing + interpreting gcode protocol
+services/opensbp.h - interruptable functions for parsing + interpreting opensbp protocol
+services/repetier.h - interruptable functions for parsing + interpreting repetier binary protocol
+services/ladderlogic.h - 
+services/log.h
+services/network.h
 
 ##Todo:
  - improve code readability by defining macros, or similar for standard function call interfaces functions, core functions.

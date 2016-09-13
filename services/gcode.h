@@ -14,8 +14,8 @@
  *  along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#ifndef PROTOCOL_REPETIER_H
-#define PROTOCOL_REPETIER_H
+#ifndef SERVICE_GCODE_H
+#define SERVICE_GCODE_H
 
 // add broadcast enumeration packet
 // split into protocol-gcode, protocol-opensbp, protocol-repetier
@@ -249,9 +249,9 @@
 
 #ifdef SDSUPPORT
     case 20: // M20 - list SD card
-      SERIAL_PROTOCOLLNPGM(MSG_BEGIN_FILE_LIST);
+      SERIAL_SERVICELNPGM(MSG_BEGIN_FILE_LIST);
       card.ls();
-      SERIAL_PROTOCOLLNPGM(MSG_END_FILE_LIST);
+      SERIAL_SERVICELNPGM(MSG_END_FILE_LIST);
       break;
     case 21: // M21 - init SD card
 
@@ -373,28 +373,28 @@
         break;
       }
       #if (TEMP_0_PIN > -1)
-        SERIAL_PROTOCOLPGM("ok T:");
-        SERIAL_PROTOCOL_F(degHotend(tmp_extruder),1);
-        SERIAL_PROTOCOLPGM(" /");
-        SERIAL_PROTOCOL_F(degTargetHotend(tmp_extruder),1);
+        SERIAL_SERVICEPGM("ok T:");
+        SERIAL_SERVICE_F(degHotend(tmp_extruder),1);
+        SERIAL_SERVICEPGM(" /");
+        SERIAL_SERVICE_F(degTargetHotend(tmp_extruder),1);
         #if TEMP_BED_PIN > -1
-          SERIAL_PROTOCOLPGM(" B:");
-          SERIAL_PROTOCOL_F(degBed(),1);
-          SERIAL_PROTOCOLPGM(" /");
-          SERIAL_PROTOCOL_F(degTargetBed(),1);
+          SERIAL_SERVICEPGM(" B:");
+          SERIAL_SERVICE_F(degBed(),1);
+          SERIAL_SERVICEPGM(" /");
+          SERIAL_SERVICE_F(degTargetBed(),1);
         #endif //TEMP_BED_PIN
       #else
         SERIAL_ERROR_START;
         SERIAL_ERRORLNPGM(MSG_ERR_NO_THERMISTORS);
       #endif
 
-        SERIAL_PROTOCOLPGM(" @:");
-        SERIAL_PROTOCOL(getHeaterPower(tmp_extruder));
+        SERIAL_SERVICEPGM(" @:");
+        SERIAL_SERVICE(getHeaterPower(tmp_extruder));
 
-        SERIAL_PROTOCOLPGM(" B@:");
-        SERIAL_PROTOCOL(getHeaterPower(-1));
+        SERIAL_SERVICEPGM(" B@:");
+        SERIAL_SERVICE(getHeaterPower(-1));
 
-        SERIAL_PROTOCOLLN("");
+        SERIAL_SERVICELN("");
       return;
       break;
     case 109:
@@ -435,23 +435,23 @@
       #endif //TEMP_RESIDENCY_TIME
           if( (millis() - codenum) > 1000UL )
           { //Print Temp Reading and remaining time every 1 second while heating up/cooling down
-            SERIAL_PROTOCOLPGM("T:");
-            SERIAL_PROTOCOL_F(degHotend(tmp_extruder),1);
-            SERIAL_PROTOCOLPGM(" E:");
-            SERIAL_PROTOCOL((int)tmp_extruder);
+            SERIAL_SERVICEPGM("T:");
+            SERIAL_SERVICE_F(degHotend(tmp_extruder),1);
+            SERIAL_SERVICEPGM(" E:");
+            SERIAL_SERVICE((int)tmp_extruder);
             #ifdef TEMP_RESIDENCY_TIME
-              SERIAL_PROTOCOLPGM(" W:");
+              SERIAL_SERVICEPGM(" W:");
               if(residencyStart > -1)
               {
                  codenum = ((TEMP_RESIDENCY_TIME * 1000UL) - (millis() - residencyStart)) / 1000UL;
-                 SERIAL_PROTOCOLLN( codenum );
+                 SERIAL_SERVICELN( codenum );
               }
               else
               {
-                 SERIAL_PROTOCOLLN( "?" );
+                 SERIAL_SERVICELN( "?" );
               }
             #else
-              SERIAL_PROTOCOLLN("");
+              SERIAL_SERVICELN("");
             #endif
             codenum = millis();
           }
@@ -484,13 +484,13 @@
           if(( millis() - codenum) > 1000 ) //Print Temp Reading every 1 second while heating up.
           {
             float tt=degHotend(active_extruder);
-            SERIAL_PROTOCOLPGM("T:");
-            SERIAL_PROTOCOL(tt);
-            SERIAL_PROTOCOLPGM(" E:");
-            SERIAL_PROTOCOL((int)active_extruder);
-            SERIAL_PROTOCOLPGM(" B:");
-            SERIAL_PROTOCOL_F(degBed(),1);
-            SERIAL_PROTOCOLLN("");
+            SERIAL_SERVICEPGM("T:");
+            SERIAL_SERVICE(tt);
+            SERIAL_SERVICEPGM(" E:");
+            SERIAL_SERVICE((int)active_extruder);
+            SERIAL_SERVICEPGM(" B:");
+            SERIAL_SERVICE_F(degBed(),1);
+            SERIAL_SERVICELN("");
             codenum = millis();
           }
           manage_heater();
@@ -629,7 +629,7 @@
       }
       break;
     case 115: // M115
-      SERIAL_PROTOCOLPGM(MSG_M115_REPORT);
+      SERIAL_SERVICEPGM(MSG_M115_REPORT);
       break;
     case 117: // M117 display message
       starpos = (strchr(strchr_pointer + 5,'*'));
@@ -638,23 +638,23 @@
       lcd_setstatus(strchr_pointer + 5);
       break;
     case 114: // M114
-      SERIAL_PROTOCOLPGM("X:");
-      SERIAL_PROTOCOL(current_position[X_AXIS]);
-      SERIAL_PROTOCOLPGM("Y:");
-      SERIAL_PROTOCOL(current_position[Y_AXIS]);
-      SERIAL_PROTOCOLPGM("Z:");
-      SERIAL_PROTOCOL(current_position[Z_AXIS]);
-      SERIAL_PROTOCOLPGM("E:");
-      SERIAL_PROTOCOL(current_position[E_AXIS]);
+      SERIAL_SERVICEPGM("X:");
+      SERIAL_SERVICE(current_position[X_AXIS]);
+      SERIAL_SERVICEPGM("Y:");
+      SERIAL_SERVICE(current_position[Y_AXIS]);
+      SERIAL_SERVICEPGM("Z:");
+      SERIAL_SERVICE(current_position[Z_AXIS]);
+      SERIAL_SERVICEPGM("E:");
+      SERIAL_SERVICE(current_position[E_AXIS]);
 
-      SERIAL_PROTOCOLPGM(MSG_COUNT_X);
-      SERIAL_PROTOCOL(float(st_get_position(X_AXIS))/axis_steps_per_unit[X_AXIS]);
-      SERIAL_PROTOCOLPGM("Y:");
-      SERIAL_PROTOCOL(float(st_get_position(Y_AXIS))/axis_steps_per_unit[Y_AXIS]);
-      SERIAL_PROTOCOLPGM("Z:");
-      SERIAL_PROTOCOL(float(st_get_position(Z_AXIS))/axis_steps_per_unit[Z_AXIS]);
+      SERIAL_SERVICEPGM(MSG_COUNT_X);
+      SERIAL_SERVICE(float(st_get_position(X_AXIS))/axis_steps_per_unit[X_AXIS]);
+      SERIAL_SERVICEPGM("Y:");
+      SERIAL_SERVICE(float(st_get_position(Y_AXIS))/axis_steps_per_unit[Y_AXIS]);
+      SERIAL_SERVICEPGM("Z:");
+      SERIAL_SERVICE(float(st_get_position(Z_AXIS))/axis_steps_per_unit[Z_AXIS]);
 
-      SERIAL_PROTOCOLLN("");
+      SERIAL_SERVICELN("");
       break;
     case 120: // M120
       enable_endstops(false) ;
@@ -663,30 +663,30 @@
       enable_endstops(true) ;
       break;
     case 119: // M119
-    SERIAL_PROTOCOLLN(MSG_M119_REPORT);
+    SERIAL_SERVICELN(MSG_M119_REPORT);
       #if (X_MIN_PIN > -1)
-        SERIAL_PROTOCOLPGM(MSG_X_MIN);
-        SERIAL_PROTOCOLLN(((READ(X_MIN_PIN)^X_ENDSTOPS_INVERTING)?MSG_ENDSTOP_HIT:MSG_ENDSTOP_OPEN));
+        SERIAL_SERVICEPGM(MSG_X_MIN);
+        SERIAL_SERVICELN(((READ(X_MIN_PIN)^X_ENDSTOPS_INVERTING)?MSG_ENDSTOP_HIT:MSG_ENDSTOP_OPEN));
       #endif
       #if (X_MAX_PIN > -1)
-        SERIAL_PROTOCOLPGM(MSG_X_MAX);
-        SERIAL_PROTOCOLLN(((READ(X_MAX_PIN)^X_ENDSTOPS_INVERTING)?MSG_ENDSTOP_HIT:MSG_ENDSTOP_OPEN));
+        SERIAL_SERVICEPGM(MSG_X_MAX);
+        SERIAL_SERVICELN(((READ(X_MAX_PIN)^X_ENDSTOPS_INVERTING)?MSG_ENDSTOP_HIT:MSG_ENDSTOP_OPEN));
       #endif
       #if (Y_MIN_PIN > -1)
-        SERIAL_PROTOCOLPGM(MSG_Y_MIN);
-        SERIAL_PROTOCOLLN(((READ(Y_MIN_PIN)^Y_ENDSTOPS_INVERTING)?MSG_ENDSTOP_HIT:MSG_ENDSTOP_OPEN));
+        SERIAL_SERVICEPGM(MSG_Y_MIN);
+        SERIAL_SERVICELN(((READ(Y_MIN_PIN)^Y_ENDSTOPS_INVERTING)?MSG_ENDSTOP_HIT:MSG_ENDSTOP_OPEN));
       #endif
       #if (Y_MAX_PIN > -1)
-        SERIAL_PROTOCOLPGM(MSG_Y_MAX);
-        SERIAL_PROTOCOLLN(((READ(Y_MAX_PIN)^Y_ENDSTOPS_INVERTING)?MSG_ENDSTOP_HIT:MSG_ENDSTOP_OPEN));
+        SERIAL_SERVICEPGM(MSG_Y_MAX);
+        SERIAL_SERVICELN(((READ(Y_MAX_PIN)^Y_ENDSTOPS_INVERTING)?MSG_ENDSTOP_HIT:MSG_ENDSTOP_OPEN));
       #endif
       #if (Z_MIN_PIN > -1)
-        SERIAL_PROTOCOLPGM(MSG_Z_MIN);
-        SERIAL_PROTOCOLLN(((READ(Z_MIN_PIN)^Z_ENDSTOPS_INVERTING)?MSG_ENDSTOP_HIT:MSG_ENDSTOP_OPEN));
+        SERIAL_SERVICEPGM(MSG_Z_MIN);
+        SERIAL_SERVICELN(((READ(Z_MIN_PIN)^Z_ENDSTOPS_INVERTING)?MSG_ENDSTOP_HIT:MSG_ENDSTOP_OPEN));
       #endif
       #if (Z_MAX_PIN > -1)
-        SERIAL_PROTOCOLPGM(MSG_Z_MAX);
-        SERIAL_PROTOCOLLN(((READ(Z_MAX_PIN)^Z_ENDSTOPS_INVERTING)?MSG_ENDSTOP_HIT:MSG_ENDSTOP_OPEN));
+        SERIAL_SERVICEPGM(MSG_Z_MAX);
+        SERIAL_SERVICELN(((READ(Z_MAX_PIN)^Z_ENDSTOPS_INVERTING)?MSG_ENDSTOP_HIT:MSG_ENDSTOP_OPEN));
       #endif
       break;
       //TODO: update for all axis, use for loop
@@ -844,12 +844,12 @@
           }
         }
         else if (servo_index >= 0) {
-          SERIAL_PROTOCOL(MSG_OK);
-          SERIAL_PROTOCOL(" Servo ");
-          SERIAL_PROTOCOL(servo_index);
-          SERIAL_PROTOCOL(": ");
-          SERIAL_PROTOCOL(servos[servo_index].read());
-          SERIAL_PROTOCOLLN("");
+          SERIAL_SERVICE(MSG_OK);
+          SERIAL_SERVICE(" Servo ");
+          SERIAL_SERVICE(servo_index);
+          SERIAL_SERVICE(": ");
+          SERIAL_SERVICE(servos[servo_index].read());
+          SERIAL_SERVICELN("");
         }
       }
       break;
@@ -881,19 +881,19 @@
         #endif
 
         updatePID();
-        SERIAL_PROTOCOL(MSG_OK);
-		SERIAL_PROTOCOL(" p:");
-        SERIAL_PROTOCOL(Kp);
-        SERIAL_PROTOCOL(" i:");
-        SERIAL_PROTOCOL(unscalePID_i(Ki));
-        SERIAL_PROTOCOL(" d:");
-        SERIAL_PROTOCOL(unscalePID_d(Kd));
+        SERIAL_SERVICE(MSG_OK);
+		SERIAL_SERVICE(" p:");
+        SERIAL_SERVICE(Kp);
+        SERIAL_SERVICE(" i:");
+        SERIAL_SERVICE(unscalePID_i(Ki));
+        SERIAL_SERVICE(" d:");
+        SERIAL_SERVICE(unscalePID_d(Kd));
         #ifdef PID_ADD_EXTRUSION_RATE
-        SERIAL_PROTOCOL(" c:");
+        SERIAL_SERVICE(" c:");
         //Kc does not have scaling applied above, or in resetting defaults
-        SERIAL_PROTOCOL(Kc);
+        SERIAL_SERVICE(Kc);
         #endif
-        SERIAL_PROTOCOLLN("");
+        SERIAL_SERVICELN("");
       }
       break;
     #endif //PIDTEMP
@@ -905,14 +905,14 @@
         if(code_seen('D')) bedKd = scalePID_d(code_value());
 
         updatePID();
-        SERIAL_PROTOCOL(MSG_OK);
-		SERIAL_PROTOCOL(" p:");
-        SERIAL_PROTOCOL(bedKp);
-        SERIAL_PROTOCOL(" i:");
-        SERIAL_PROTOCOL(unscalePID_i(bedKi));
-        SERIAL_PROTOCOL(" d:");
-        SERIAL_PROTOCOL(unscalePID_d(bedKd));
-        SERIAL_PROTOCOLLN("");
+        SERIAL_SERVICE(MSG_OK);
+		SERIAL_SERVICE(" p:");
+        SERIAL_SERVICE(bedKp);
+        SERIAL_SERVICE(" i:");
+        SERIAL_SERVICE(unscalePID_i(bedKi));
+        SERIAL_SERVICE(" d:");
+        SERIAL_SERVICE(unscalePID_d(bedKd));
+        SERIAL_SERVICELN("");
       }
       break;
     #endif //PIDTEMP
@@ -1262,7 +1262,7 @@
       #endif
       SERIAL_ECHO_START;
       SERIAL_ECHO(MSG_ACTIVE_EXTRUDER);
-      SERIAL_PROTOCOLLN((int)active_extruder);
+      SERIAL_SERVICELN((int)active_extruder);
     }
   }
   
@@ -1274,4 +1274,4 @@
     SERIAL_ECHOLNPGM("\"");
   }
 
-#endif // PROTOCOL_REPETIER_H
+#endif // SERVICE_GCODE_H

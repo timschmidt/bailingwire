@@ -1,4 +1,5 @@
-/*  This file is part of the bailingwire firmware.
+/*
+ *  This file is part of the bailingwire firmware.
  *
  *  Bailingwire is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -14,10 +15,11 @@
  *  along with Bailingwire.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef DRIVER_PWM_H
+#define DRIVER_PWM_H
 
-//#define DEVDUINO_SENSORNODE_2
-#define ARDUINO_MEGA_2560
+// PWM provides helper functions for allocating and configuring a timer to generate a PWM signal
 
-#endif // CONFIG_H
+
+
+#endif // DRIVER_PWM_H
